@@ -89,56 +89,65 @@ namespace Sculptor.Gynac.Controllers
                 var moduleCount = 0;
                 foreach (var module in moduleDataModel)
                 {
-                    var moduleModel = new ModuleMasterModel();
-                    moduleModel.Id = module.Id;
-                    moduleModel.Name = module.Name;
-                    moduleModel.SessionId = module.SessionId;
-                    moduleModel.IsModuleChecked = false;
-
-                    var talksDataModel = await _commonRepo.GetAllTalks(sessionModel.Id, moduleModel.Id);
-                    var moduleTalksCount = talksDataModel.Count();
-                    var talksCount = 0;
-                    foreach (var talks in talksDataModel)
+                    if (module.SessionId == sessionModel.Id)
                     {
-                        var talksModel = new TalkMasterModel();
-                        talksModel.Id = talks.Id;
-                        talksModel.Name = talks.Name;
-                        talksModel.VideoLink = talks.VideoLink;
-                        talksModel.SessionId = talks.SessionId;
-                        talksModel.ModulId = talks.ModulId;
+                        var moduleModel = new ModuleMasterModel();
+                        moduleModel.Id = module.Id;
+                        moduleModel.Name = module.Name;
+                        moduleModel.SessionId = module.SessionId;
+                        moduleModel.IsModuleChecked = false;
 
-                        if (ViewBag.userTalksExits)
+
+                        var talksDataModel = await _commonRepo.GetAllTalks(sessionModel.Id, moduleModel.Id);
+                        var moduleTalksCount = talksDataModel.Count();
+                        var talksCount = 0;
+                        foreach (var talks in talksDataModel)
                         {
-                            var chekList = await _userTalkRepo.GetUserTalks(userId);
-                            bool s = false;
-                            DateTime setEndDate;
-                            talksModel.IsTalksChecked = s;
-                            foreach (var chk in chekList)
+                            if (talks.SessionId == sessionModel.Id && talks.ModulId == moduleModel.Id)
                             {
-                                if (talks.Id == chk.TalkId)
+                                var talksModel = new TalkMasterModel();
+                                talksModel.Id = talks.Id;
+                                talksModel.Name = talks.Name;
+                                talksModel.VideoLink = talks.VideoLink;
+                                talksModel.SessionId = talks.SessionId;
+                                talksModel.ModulId = talks.ModulId;
+
+                                if (ViewBag.userTalksExits)
                                 {
-                                    talksCount++;
-                                    talksModel.EndDate = chk.Enddate.GetValueOrDefault();
-                                    s = true;
+                                    var chekList = await _userTalkRepo.GetUserTalks(userId);
+                                    bool s = false;
+                                    DateTime setEndDate;
+                                    talksModel.IsTalksChecked = s;
+                                    foreach (var chk in chekList)
+                                    {
+                                        if (talks.Id == chk.TalkId)
+                                        {
+                                            talksCount++;
+                                            talksModel.EndDate = chk.Enddate.GetValueOrDefault();
+                                            s = true;
+                                        }
+                                    }
+                                    if (s)
+                                    {
+                                        talksModel.IsTalksChecked = s;
+                                    }
                                 }
+                                else
+                                {
+                                    talksModel.IsTalksChecked = false;
+                                }
+                                data.UserTalkMaster.Add(talksModel);
                             }
-                            if (s)
+                            if (moduleTalksCount == talksCount)
                             {
-                                talksModel.IsTalksChecked = s;
+                                moduleCount++;
+                                moduleModel.IsModuleChecked = true;
                             }
                         }
-                        else
-                        {
-                            talksModel.IsTalksChecked = false;
-                        }
-                        data.UserTalkMaster.Add(talksModel);
+                         data.UserModuleMaster.Add(moduleModel);
                     }
-                    if (moduleTalksCount == talksCount)
-                    {
-                        moduleCount++;
-                        moduleModel.IsModuleChecked = true;
-                    }
-                    data.UserModuleMaster.Add(moduleModel);
+
+                   
                 }
                 if (moduleCount == sessionModuleCount)
                 {
