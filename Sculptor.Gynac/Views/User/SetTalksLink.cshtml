@@ -24,61 +24,62 @@
     <div class="blank-page form-horizontal">
         <div class="row">
             <div class="col-md-12">
-                
+                <div class="table-responsive">
                     <table class="table">
                         <tbody>
                             @foreach (var session in Model.UserSessionMaster)
                             {
-                                <tr class="table-row">
-                                    <td class="table-text">
-                                        <h3>@session.Name</h3>
-                                    </td>
-                                    <td class="table-text"><input type="checkbox" data-sid="@session.Id" name="session" checked="@session.IsSessionChecked" /></td>
-                                </tr>
-                                <tr class="table-row">
-                                    <td class="table-text" colspan="2">
-                                        <table class="table">
-                                            <tbody>
-                                                @foreach (var module in Model.UserModuleMaster)
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h3>@session.Name</h3>
+                                </td>
+                                <td class="table-text"><input type="checkbox" data-sid="@session.Id" name="session" checked="@session.IsSessionChecked" /></td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text" colspan="2">
+                                    <table class="table">
+                                        <tbody>
+                                            @foreach (var module in session.UserModuleMaster)
                                                 {
 
-                                                    <tr class="table-row">
-                                                        <td class="table-text"><h4>@module.Name</h4></td>
-                                                        <td class="table-text"><input type="checkbox" data-sid="@session.Id" name="module" data-mid="@module.Id" checked="@module.IsModuleChecked" /></td>
-                                                    </tr>
-                                                    <tr class="table-row">
-                                                        <td class="table-text" colspan="2">
-                                                            <table class="table">
-                                                                <tbody>
-                                                                    @foreach (var talks in Model.UserTalkMaster.Where(m => m.ModulId == module.Id).ToList())
+                                                <tr class="table-row">
+                                                    <td class="table-text"><h4>@module.Name</h4></td>
+                                                    <td class="table-text"><input type="checkbox" data-sid="@session.Id" name="module" data-mid="@module.Id" checked="@module.IsModuleChecked" /></td>
+                                                </tr>
+                                                <tr class="table-row">
+                                                    <td class="table-text" colspan="2">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                @foreach (var talks in module.UserTalkMaster.Where(m => m.ModulId == module.Id).ToList())
                                                                     {
-                                                                        <tr class="table-row">
-                                                                            <td class="table-text">
-                                                                                <h5>@talks.Name</h5>
-                                                                            </td>
-                                                                            <td class="table-text">
-                                                                                @if (talks.IsTalksChecked)
+                                                                    <tr class="table-row">
+                                                                        <td class="table-text">
+                                                                            <h5>@talks.Name</h5>
+                                                                        </td>
+                                                                        <td class="table-text">
+                                                                            @if (talks.IsTalksChecked)
                                                                                 {
-                                                                                    <h5>@talks.EndDate.ToString("dd/MM/yyyy")</h5>
+                                                                                <h5>@talks.EndDate.ToString("dd/MM/yyyy")</h5>
                                                                                 }
-                                                                            </td>
-                                                                            <td class="table-text"><input type="checkbox" data-sid="@session.Id" name="talks" data-mid="@module.Id" data-tid="@talks.Id" checked="@talks.IsTalksChecked" /></td>
-                                                                        </tr>
+                                                                        </td>
+                                                                        <td class="table-text"><input type="checkbox" data-sid="@session.Id" name="talks" data-mid="@module.Id" data-tid="@talks.Id" checked="@talks.IsTalksChecked" /></td>
+                                                                    </tr>
                                                                     }
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
                                                 }
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
                             }
 
                         </tbody>
                     </table>
-               
+
+                </div>
             </div>
         </div>
         <hr />

@@ -8,10 +8,16 @@ namespace Sculptor.Gynac.Models
     //this model using for active and inactive talks
     public class ModuleMasterModel
     {
+        public ModuleMasterModel()
+        {
+            UserTalkMaster = new List<TalkMasterModel>();            
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public int? SessionId { get; set; }
-        public bool IsModuleChecked { get; set; }        
+        public bool IsModuleChecked { get; set; }
+
+        public List<TalkMasterModel> UserTalkMaster { get; set; }  
     }
 
     //this  model using for images

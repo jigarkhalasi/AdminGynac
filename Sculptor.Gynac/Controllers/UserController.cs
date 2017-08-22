@@ -75,6 +75,7 @@ namespace Sculptor.Gynac.Controllers
 
             var sessionDataModel = await _commonRepo.GetAllSession();
 
+            var checkList = await _userTalkRepo.GetUserTalks(userId);
 
             //var sessionModel = new List<SessionMasterModel>();
             foreach (var session in sessionDataModel)
@@ -107,38 +108,42 @@ namespace Sculptor.Gynac.Controllers
                         talksModel.SessionId = talks.SessionId;
                         talksModel.ModulId = talks.ModulId;
 
-                        if (ViewBag.userTalksExits)
+
+                        var check = checkList.Where(c => c.TalkId == talks.Id).FirstOrDefault();
+                        if (check != null)
                         {
-                            var chekList = await _userTalkRepo.GetUserTalks(userId);
-                            bool s = false;
-                            DateTime setEndDate;
-                            talksModel.IsTalksChecked = s;
-                            foreach (var chk in chekList)
-                            {
-                                if (talks.Id == chk.TalkId)
-                                {
-                                    talksCount++;
-                                    talksModel.EndDate = chk.Enddate.GetValueOrDefault();
-                                    s = true;
-                                }
-                            }
-                            if (s)
-                            {
-                                talksModel.IsTalksChecked = s;
-                            }
+                            talksModel.IsTalksChecked = true;
+                            talksModel.EndDate = check.Enddate.GetValueOrDefault();
                         }
                         else
                         {
                             talksModel.IsTalksChecked = false;
                         }
-                        data.UserTalkMaster.Add(talksModel);
+                        //bool s = false;
+                        //DateTime setEndDate;
+                        //talksModel.IsTalksChecked = s;
+                        //foreach (var chk in chekList)
+                        //{
+                        //    if (talks.Id == chk.TalkId)
+                        //    {
+                        //        talksCount++;
+                        //        talksModel.EndDate = chk.Enddate.GetValueOrDefault();
+                        //        s = true;
+                        //    }
+                        //}
+                        //if (s)
+                        //{
+                        //    talksModel.IsTalksChecked = s;
+                        //}
+
+                        moduleModel.UserTalkMaster.Add(talksModel);
                     }
                     if (moduleTalksCount == talksCount)
                     {
                         moduleCount++;
                         moduleModel.IsModuleChecked = true;
                     }
-                    data.UserModuleMaster.Add(moduleModel);
+                    sessionModel.UserModuleMaster.Add(moduleModel);
                 }
                 if (moduleCount == sessionModuleCount)
                 {
