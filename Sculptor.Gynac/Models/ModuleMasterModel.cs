@@ -35,6 +35,15 @@ namespace Sculptor.Gynac.Models
         public string Description { get; set; }
         public int? ModulId { get; set; }        
     }
+
+    public class ModuleUploadSampleImages
+    {
+        public int Id { get; set; }
+        public string SampleImage { get; set; }
+        public string Description { get; set; }
+        public int? ModulId { get; set; }
+        public string ModulName { get; set; }
+    }
     
     public class UserSampleImages
     {

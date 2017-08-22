@@ -10,16 +10,18 @@
 namespace Sculptor.Gynac.Repository
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class Get_All_Course_Result
+    public partial class AspNetRole
     {
-        public int Course_Id { get; set; }
-        public int Faculty_Id { get; set; }
-        public string Course_Image { get; set; }
+        public AspNetRole()
+        {
+            this.AspNetUsers = new HashSet<AspNetUser>();
+        }
+    
+        public string Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public int Fees { get; set; }
-        public string Currency { get; set; }
-        public int Validity_Days { get; set; }
+    
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

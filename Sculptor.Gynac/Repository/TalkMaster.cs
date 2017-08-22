@@ -23,16 +23,20 @@ namespace Sculptor.Gynac.Repository
         public int Id { get; set; }
         public string Name { get; set; }
         public string VideoLink { get; set; }
+        public string PreViewVideoLink { get; set; }
         public Nullable<int> FacultyId { get; set; }
         public Nullable<int> ModulId { get; set; }
         public Nullable<int> SessionId { get; set; }
+        public string Talkdesc { get; set; }
+        public string Duration { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string BackupVideoLink { get; set; }
     
+        public virtual Faculty Faculty { get; set; }
+        public virtual ModuleMaster ModuleMaster { get; set; }
         public virtual ICollection<QuestionMaster> QuestionMasters { get; set; }
         public virtual SessionMaster SessionMaster { get; set; }
         public virtual ICollection<UserTalk> UserTalks { get; set; }
-        public virtual ModuleMaster ModuleMaster { get; set; }
-        public virtual Faculty Faculty { get; set; }
     }
 }

@@ -17,7 +17,9 @@ namespace Sculptor.Gynac.Repository
         public User()
         {
             this.Notifications = new HashSet<Notification>();
+            this.UserBookMarks = new HashSet<UserBookMark>();
             this.UserModuleImages = new HashSet<UserModuleImage>();
+            this.UserRatings = new HashSet<UserRating>();
             this.UserTalks = new HashSet<UserTalk>();
             this.User_Course = new HashSet<User_Course>();
         }
@@ -43,9 +45,12 @@ namespace Sculptor.Gynac.Repository
         public string Transaction_Status { get; set; }
         public string Order_Status { get; set; }
         public string Comment { get; set; }
+        public Nullable<bool> IsLogin { get; set; }
     
         public virtual ICollection<Notification> Notifications { get; set; }
+        public virtual ICollection<UserBookMark> UserBookMarks { get; set; }
         public virtual ICollection<UserModuleImage> UserModuleImages { get; set; }
+        public virtual ICollection<UserRating> UserRatings { get; set; }
         public virtual ICollection<UserTalk> UserTalks { get; set; }
         public virtual ICollection<User_Course> User_Course { get; set; }
     }

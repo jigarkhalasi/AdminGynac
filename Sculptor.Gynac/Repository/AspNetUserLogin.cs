@@ -12,17 +12,12 @@ namespace Sculptor.Gynac.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class Notification
+    public partial class AspNetUserLogin
     {
-        public int Id { get; set; }
-        public string Comment { get; set; }
-        public Nullable<int> IsRead { get; set; }
-        public Nullable<int> FacultyId { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public virtual Faculty Faculty { get; set; }
-        public virtual User User { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

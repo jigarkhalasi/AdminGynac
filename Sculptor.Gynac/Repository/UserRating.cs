@@ -12,20 +12,16 @@ namespace Sculptor.Gynac.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class SessionMaster
+    public partial class UserRating
     {
-        public SessionMaster()
-        {
-            this.ModuleMasters = new HashSet<ModuleMaster>();
-            this.TalkMasters = new HashSet<TalkMaster>();
-        }
-    
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int UserRatingId { get; set; }
+        public int UserId { get; set; }
+        public int RatId { get; set; }
+        public Nullable<int> RateMark { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
     
-        public virtual ICollection<ModuleMaster> ModuleMasters { get; set; }
-        public virtual ICollection<TalkMaster> TalkMasters { get; set; }
+        public virtual RatingMaster RatingMaster { get; set; }
+        public virtual User User { get; set; }
     }
 }

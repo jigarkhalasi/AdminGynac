@@ -30,7 +30,7 @@ namespace Sculptor.Gynac.Repository
         public System.DateTime Insert_Date { get; set; }
         public System.DateTime Update_Date { get; set; }
     
-        public virtual ICollection<User_Course> User_Course { get; set; }
         public virtual Faculty Faculty { get; set; }
+        public virtual ICollection<User_Course> User_Course { get; set; }
     }
 }

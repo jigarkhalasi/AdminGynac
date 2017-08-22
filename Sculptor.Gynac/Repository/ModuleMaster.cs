@@ -28,10 +28,10 @@ namespace Sculptor.Gynac.Repository
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<int> FacultyId { get; set; }
     
+        public virtual Faculty Faculty { get; set; }
         public virtual ICollection<ModuleImage> ModuleImages { get; set; }
         public virtual SessionMaster SessionMaster { get; set; }
         public virtual ICollection<TalkMaster> TalkMasters { get; set; }
         public virtual ICollection<UserModuleImage> UserModuleImages { get; set; }
-        public virtual Faculty Faculty { get; set; }
     }
 }

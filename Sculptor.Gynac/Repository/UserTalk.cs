@@ -23,6 +23,7 @@ namespace Sculptor.Gynac.Repository
         public Nullable<int> UserId { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string Comment { get; set; }
     
         public virtual TalkMaster TalkMaster { get; set; }
         public virtual User User { get; set; }

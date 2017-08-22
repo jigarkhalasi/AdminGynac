@@ -12,7 +12,7 @@ namespace Sculptor.Gynac.Models
         public string Name { get; set; }
         public string Image { get; set; }
         public string Profile_Summary { get; set; }
-        public DateTime Insert_Date { get; set; }
-        public DateTime Update_Date { get; set; }
+        //public DateTime Insert_Date { get; set; }
+        //public DateTime Update_Date { get; set; }
     }
 }
