@@ -114,6 +114,7 @@ namespace Sculptor.Gynac.Controllers
                         {
                             talksModel.IsTalksChecked = true;
                             talksModel.EndDate = check.Enddate.GetValueOrDefault();
+                            talksCount++;
                         }
                         else
                         {
