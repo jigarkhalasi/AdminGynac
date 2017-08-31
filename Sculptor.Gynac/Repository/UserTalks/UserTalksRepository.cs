@@ -26,6 +26,9 @@ namespace Sculptor.Gynac.Repository.UserTalks
                         dataModel.Enddate = DateTime.ParseExact(endDate, "MM-dd-yyyy", System.Globalization.CultureInfo.InvariantCulture);
                         dataModel.TalkId = item;
                         dataModel.UserId = userId;
+                        dataModel.IsActive = 0;
+                        dataModel.IsVideoStatus = 0;
+                        dataModel.IsExamlear = 0;
                         _contex.UserTalks.Add(dataModel);
 
                     }

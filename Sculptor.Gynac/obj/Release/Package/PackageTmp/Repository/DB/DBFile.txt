@@ -24,3 +24,9 @@ ALTER TABLE [gynac].[dbo].[UserModuleImage]
   GetUserModuleImageByModuleId
   GetAllReviewImages
   ModuleDetailsModel
+
+
+update the contrain 23082017
+ALTER TABLE [dbo].[UserTalks] ADD CONSTRAINT DF_IsActive DEFAULT 0 FOR IsActive;
+ALTER TABLE [dbo].[UserTalks] ADD CONSTRAINT DF_IsVideoStatus DEFAULT 0 FOR IsVideoStatus;
+ALTER TABLE [dbo].[UserTalks] ADD CONSTRAINT DF_IsExamlear DEFAULT 0 FOR IsExamlear;
