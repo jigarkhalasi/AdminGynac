@@ -5,42 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="dd372fb133a1460881b7bc4ce9a7b805" Name="Diagram1" ZoomLevel="85">
-        <EntityTypeShape EntityType="GynacModel.Course" Width="1.5" PointX="5.25" PointY="20.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GynacModel.ModuleImage" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="GynacModel.QuestionMaster" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="GynacModel.QuetionOptionMaster" Width="1.5" PointX="9.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GynacModel.SessionMaster" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GynacModel.TalkMaster" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GynacModel.User_Course" Width="1.5" PointX="7.5" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="GynacModel.UserAnswer" Width="1.5" PointX="12" PointY="5" IsExpanded="true" />
-        <AssociationConnector Association="GynacModel.FK_User_Course_Course" ManuallyRouted="false" />
-        <AssociationConnector Association="GynacModel.FK__QuestionM__TalkI__4316F928" ManuallyRouted="false" />
-        <AssociationConnector Association="GynacModel.FK__QuetionOp__QueId__45F365D3" ManuallyRouted="false" />
-        <AssociationConnector Association="GynacModel.FK__UserAnswe__QueId__49C3F6B7" ManuallyRouted="false" />
-        <AssociationConnector Association="GynacModel.FK__UserAnswe__QueOp__48CFD27E" ManuallyRouted="false" />
-        <AssociationConnector Association="GynacModel.FK__TalkMaste__Sessi__403A8C7D" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="GynacModel.UserTalk" Width="1.5" PointX="10.5" PointY="10" />
-        <AssociationConnector Association="GynacModel.FK__UserTask__TalkId__4CA06362" />
-        <EntityTypeShape EntityType="GynacModel.Notification" Width="1.5" PointX="10.5" PointY="14.5" />
-        <EntityTypeShape EntityType="GynacModel.ModuleMaster" Width="1.5" PointX="5.25" PointY="0.75" />
-        <AssociationConnector Association="GynacModel.FK__ModuleIma__Modul__3B75D760" />
-        <AssociationConnector Association="GynacModel.FK__ModuleMas__Sessi__38996AB5" />
-        <AssociationConnector Association="GynacModel.FK__TalkMaste__Modul__3F466844" />
-        <EntityTypeShape EntityType="GynacModel.UserModuleImage" Width="1.5" PointX="7.5" PointY="8.875" />
-        <AssociationConnector Association="GynacModel.FK__UserModul__Modul__5165187F" />
-        <AssociationConnector Association="GynacModel.FK__UserModul__Modul__5070F446" />
-        <EntityTypeShape EntityType="GynacModel.User" Width="1.5" PointX="0.75" PointY="13.125" />
-        <AssociationConnector Association="GynacModel.FK__Notificat__UserI__5FB337D6" />
-        <AssociationConnector Association="GynacModel.FK__UserModul__UserI__52593CB8" />
-        <AssociationConnector Association="GynacModel.FK__UserTask__UserId__4D94879B" />
-        <AssociationConnector Association="GynacModel.FK_User_Course_User" />
-        <EntityTypeShape EntityType="GynacModel.Faculty" Width="1.5" PointX="3" PointY="10.375" />
-        <AssociationConnector Association="GynacModel.FK_Course_Faculty" />
-        <AssociationConnector Association="GynacModel.FK__ModuleMas__Facul__3E52440B" />
-        <AssociationConnector Association="GynacModel.FK__Notificat__Facul__5EBF139D" />
-        <AssociationConnector Association="GynacModel.FK__TalkMaste__Facul__3E52440B" />
-        <AssociationConnector Association="GynacModel.FK__UserModul__Facul__6E01572D" />
-        </Diagram>
+        <EntityTypeShape EntityType="GynacModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="GynacModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="3.625" />
+        <EntityTypeShape EntityType="GynacModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="GynacModel.AspNetUser" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="GynacModel.RatingMaster" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="GynacModel.UserBookMark" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="GynacModel.UserRating" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="GynacModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="GynacModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="GynacModel.FK__UserRatin__RatId__6BE40491" />
+        <AssociationConnector Association="GynacModel.AspNetUserRoles" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

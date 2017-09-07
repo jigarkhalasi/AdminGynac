@@ -10,33 +10,23 @@
 namespace Sculptor.Gynac.Repository
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TalkMaster
+    public partial class Get_Talk_Video_Result
     {
-        public TalkMaster()
-        {
-            this.QuestionMasters = new HashSet<QuestionMaster>();
-            this.UserTalks = new HashSet<UserTalk>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public string VideoLink { get; set; }
+        public string PreViewVideoLink { get; set; }
         public Nullable<int> FacultyId { get; set; }
         public Nullable<int> ModulId { get; set; }
         public Nullable<int> SessionId { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
-        public string PreViewVideoLink { get; set; }
         public string Talkdesc { get; set; }
         public string Duration { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
         public string BackupVideoLink { get; set; }
-    
-        public virtual ICollection<QuestionMaster> QuestionMasters { get; set; }
-        public virtual SessionMaster SessionMaster { get; set; }
-        public virtual ICollection<UserTalk> UserTalks { get; set; }
-        public virtual ModuleMaster ModuleMaster { get; set; }
-        public virtual Faculty Faculty { get; set; }
+        public string FacultyName { get; set; }
+        public string ProfilePic { get; set; }
+        public string Email { get; set; }
     }
 }

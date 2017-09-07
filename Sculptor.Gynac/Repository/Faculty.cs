@@ -28,14 +28,17 @@ namespace Sculptor.Gynac.Repository
         public string Name { get; set; }
         public string Image { get; set; }
         public string Profile_Summary { get; set; }
-        public Nullable<System.DateTime> Insert_Date { get; set; }
-        public Nullable<System.DateTime> Update_Date { get; set; }
+        public System.DateTime Insert_Date { get; set; }
+        public System.DateTime Update_Date { get; set; }
         public string AspNetUsersId { get; set; }
+        public string ProfilePic { get; set; }
+        public string Email { get; set; }
     
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<ModuleMaster> ModuleMasters { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<TalkMaster> TalkMasters { get; set; }
         public virtual ICollection<UserModuleImage> UserModuleImages { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

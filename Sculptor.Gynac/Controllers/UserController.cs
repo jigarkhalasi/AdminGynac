@@ -163,5 +163,12 @@ namespace Sculptor.Gynac.Controllers
             var data = await _userTalkRepo.SetUserTalks(userId, talksId, endDate);
             return Json(new { success = true });
         }
+
+        [HttpGet]
+        public ActionResult TutorialSummary(Int32 userId)
+        {
+            var data =  _userTalkRepo.TutorialSummary(userId);
+            return View(data);
+        }
     }
 }

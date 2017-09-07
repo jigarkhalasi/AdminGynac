@@ -70,8 +70,8 @@ namespace Sculptor.Gynac.Controllers
                     Name = s.Name,
                     Image = s.Image,
                     Profile_Summary = s.Profile_Summary,
-                    Insert_Date = s.Insert_Date.Value,
-                    Update_Date = s.Update_Date.Value
+                    //Insert_Date = s.Insert_Date.Value,
+                    //Update_Date = s.Update_Date.Value
                 }).ToList();
 
             return Json(data, JsonRequestBehavior.AllowGet);

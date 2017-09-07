@@ -41,6 +41,13 @@ namespace Sculptor.Gynac.Repository
         public virtual DbSet<UserModuleImage> UserModuleImages { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<RatingMaster> RatingMasters { get; set; }
+        public virtual DbSet<UserBookMark> UserBookMarks { get; set; }
+        public virtual DbSet<UserRating> UserRatings { get; set; }
     
         public virtual ObjectResult<Nullable<int>> Activate_User_Course(string guid, string transactionId, string transactionStatus, string orderStatus)
         {
@@ -325,6 +332,262 @@ namespace Sculptor.Gynac.Repository
                 new ObjectParameter("Guid", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Verify_User_By_Guid_Result>("Verify_User_By_Guid", guidParameter);
+        }
+    
+        public virtual int Delete_User_BookMark(Nullable<int> bookMarkId)
+        {
+            var bookMarkIdParameter = bookMarkId.HasValue ?
+                new ObjectParameter("BookMarkId", bookMarkId) :
+                new ObjectParameter("BookMarkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_User_BookMark", bookMarkIdParameter);
+        }
+    
+        public virtual ObjectResult<Get_Talk_Video_Result> Get_Talk_Video(Nullable<int> talkId, Nullable<int> userTalkId)
+        {
+            var talkIdParameter = talkId.HasValue ?
+                new ObjectParameter("TalkId", talkId) :
+                new ObjectParameter("TalkId", typeof(int));
+    
+            var userTalkIdParameter = userTalkId.HasValue ?
+                new ObjectParameter("UserTalkId", userTalkId) :
+                new ObjectParameter("UserTalkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Talk_Video_Result>("Get_Talk_Video", talkIdParameter, userTalkIdParameter);
+        }
+    
+        public virtual ObjectResult<Get_Tutorial_Summary_Result> Get_Tutorial_Summary(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Tutorial_Summary_Result>("Get_Tutorial_Summary", user_IdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_BookMark_Result> Get_User_BookMark(Nullable<int> user_Id, Nullable<int> talkId)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            var talkIdParameter = talkId.HasValue ?
+                new ObjectParameter("TalkId", talkId) :
+                new ObjectParameter("TalkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_BookMark_Result>("Get_User_BookMark", user_IdParameter, talkIdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_Images_Result> Get_User_Images(Nullable<int> moduleId, Nullable<int> userId)
+        {
+            var moduleIdParameter = moduleId.HasValue ?
+                new ObjectParameter("ModuleId", moduleId) :
+                new ObjectParameter("ModuleId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Images_Result>("Get_User_Images", moduleIdParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_Notification_Result> Get_User_Notification(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Notification_Result>("Get_User_Notification", user_IdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_Ratings_Result> Get_User_Ratings(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Ratings_Result>("Get_User_Ratings", user_IdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_Talks_Result> Get_User_Talks(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Talks_Result>("Get_User_Talks", user_IdParameter);
+        }
+    
+        public virtual int Insert_User_BookMark(Nullable<int> user_Id, string bookMarkName, string bookMarkTime, Nullable<int> talkId)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            var bookMarkNameParameter = bookMarkName != null ?
+                new ObjectParameter("BookMarkName", bookMarkName) :
+                new ObjectParameter("BookMarkName", typeof(string));
+    
+            var bookMarkTimeParameter = bookMarkTime != null ?
+                new ObjectParameter("BookMarkTime", bookMarkTime) :
+                new ObjectParameter("BookMarkTime", typeof(string));
+    
+            var talkIdParameter = talkId.HasValue ?
+                new ObjectParameter("TalkId", talkId) :
+                new ObjectParameter("TalkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_User_BookMark", user_IdParameter, bookMarkNameParameter, bookMarkTimeParameter, talkIdParameter);
+        }
+    
+        public virtual int Update_IsParticipate(Nullable<int> user_Id, Nullable<bool> isParticipate)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            var isParticipateParameter = isParticipate.HasValue ?
+                new ObjectParameter("IsParticipate", isParticipate) :
+                new ObjectParameter("IsParticipate", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_IsParticipate", user_IdParameter, isParticipateParameter);
+        }
+    
+        public virtual int Update_Notification(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_Notification", userIdParameter);
+        }
+    
+        public virtual int Update_SignIn_User(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_SignIn_User", user_IdParameter);
+        }
+    
+        public virtual int Update_SignOut_User(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_SignOut_User", user_IdParameter);
+        }
+    
+        public virtual int Update_User_Ratings(Nullable<int> userRatingId, Nullable<int> user_Id, Nullable<int> ratingId, Nullable<int> rateMark)
+        {
+            var userRatingIdParameter = userRatingId.HasValue ?
+                new ObjectParameter("UserRatingId", userRatingId) :
+                new ObjectParameter("UserRatingId", typeof(int));
+    
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            var ratingIdParameter = ratingId.HasValue ?
+                new ObjectParameter("RatingId", ratingId) :
+                new ObjectParameter("RatingId", typeof(int));
+    
+            var rateMarkParameter = rateMark.HasValue ?
+                new ObjectParameter("RateMark", rateMark) :
+                new ObjectParameter("RateMark", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_User_Ratings", userRatingIdParameter, user_IdParameter, ratingIdParameter, rateMarkParameter);
+        }
+    
+        public virtual int Update_User_Talk(Nullable<int> user_TalkId)
+        {
+            var user_TalkIdParameter = user_TalkId.HasValue ?
+                new ObjectParameter("User_TalkId", user_TalkId) :
+                new ObjectParameter("User_TalkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_User_Talk", user_TalkIdParameter);
+        }
+    
+        public virtual int Update_UserIp(Nullable<int> user_Id, string ipAddress, string userAgent)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            var ipAddressParameter = ipAddress != null ?
+                new ObjectParameter("IpAddress", ipAddress) :
+                new ObjectParameter("IpAddress", typeof(string));
+    
+            var userAgentParameter = userAgent != null ?
+                new ObjectParameter("UserAgent", userAgent) :
+                new ObjectParameter("UserAgent", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_UserIp", user_IdParameter, ipAddressParameter, userAgentParameter);
+        }
+    
+        public virtual int Update_UserTalk_Commet(Nullable<int> userTalkId, string comment)
+        {
+            var userTalkIdParameter = userTalkId.HasValue ?
+                new ObjectParameter("UserTalkId", userTalkId) :
+                new ObjectParameter("UserTalkId", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_UserTalk_Commet", userTalkIdParameter, commentParameter);
+        }
+    
+        public virtual int Update_UserTalk_Exam(Nullable<int> userTalkId)
+        {
+            var userTalkIdParameter = userTalkId.HasValue ?
+                new ObjectParameter("UserTalkId", userTalkId) :
+                new ObjectParameter("UserTalkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_UserTalk_Exam", userTalkIdParameter);
+        }
+    
+        public virtual int Update_UserTalk_Status(Nullable<int> userTalkId, Nullable<bool> isVideoStatus, Nullable<bool> isExamlear)
+        {
+            var userTalkIdParameter = userTalkId.HasValue ?
+                new ObjectParameter("UserTalkId", userTalkId) :
+                new ObjectParameter("UserTalkId", typeof(int));
+    
+            var isVideoStatusParameter = isVideoStatus.HasValue ?
+                new ObjectParameter("IsVideoStatus", isVideoStatus) :
+                new ObjectParameter("IsVideoStatus", typeof(bool));
+    
+            var isExamlearParameter = isExamlear.HasValue ?
+                new ObjectParameter("IsExamlear", isExamlear) :
+                new ObjectParameter("IsExamlear", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_UserTalk_Status", userTalkIdParameter, isVideoStatusParameter, isExamlearParameter);
+        }
+    
+        public virtual int Upload_Module_Image(Nullable<int> userModuleImageId, string imagePath, Nullable<int> moduleId, Nullable<int> moduleImageId, Nullable<int> userId)
+        {
+            var userModuleImageIdParameter = userModuleImageId.HasValue ?
+                new ObjectParameter("UserModuleImageId", userModuleImageId) :
+                new ObjectParameter("UserModuleImageId", typeof(int));
+    
+            var imagePathParameter = imagePath != null ?
+                new ObjectParameter("ImagePath", imagePath) :
+                new ObjectParameter("ImagePath", typeof(string));
+    
+            var moduleIdParameter = moduleId.HasValue ?
+                new ObjectParameter("ModuleId", moduleId) :
+                new ObjectParameter("ModuleId", typeof(int));
+    
+            var moduleImageIdParameter = moduleImageId.HasValue ?
+                new ObjectParameter("ModuleImageId", moduleImageId) :
+                new ObjectParameter("ModuleImageId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Upload_Module_Image", userModuleImageIdParameter, imagePathParameter, moduleIdParameter, moduleImageIdParameter, userIdParameter);
         }
     }
 }
