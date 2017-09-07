@@ -13,7 +13,7 @@ using Sculptor.Gynac.Repository.UserTalks;
 
 namespace Sculptor.Gynac.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class UserController : BaseController
     {
         private readonly IUserRepository _userRepo;

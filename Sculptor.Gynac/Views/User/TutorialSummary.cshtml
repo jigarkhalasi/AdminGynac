@@ -44,11 +44,11 @@
                             <td>@item.SessionName</td>
                             <td>@item.TotalCompletedTalks </td>
                             <td>@item.TotalPendingTalks </td>
-                            <td>0
-                            @*@item.TotalCompletedModules*@
+                            <td>
+                            @item.TotalCompletedModules
                             </td>
-                            <td>0
-                            @*@item.TotalModules - TotalCompletedModules*@
+                            <td>
+                                @item.TotalPendingModules                            
                             </td>
                         </tr>
 }
