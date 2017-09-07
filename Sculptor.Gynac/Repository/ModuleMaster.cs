@@ -27,6 +27,7 @@ namespace Sculptor.Gynac.Repository
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<int> FacultyId { get; set; }
+        public string ModuleDesc { get; set; }
     
         public virtual ICollection<ModuleImage> ModuleImages { get; set; }
         public virtual SessionMaster SessionMaster { get; set; }

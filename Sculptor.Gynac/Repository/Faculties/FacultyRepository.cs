@@ -52,7 +52,9 @@ namespace Sculptor.Gynac.Repository.Faculties
             model.ModuleName = data.ModuleMaster.Name;            
             model.SampleImagePath = data.ModuleImage.SampleImage;
             model.Description = data.ModuleImage.Description;
-            model.UserImagePath = data.ImagePath;
+
+            var imgUrl = System.Configuration.ConfigurationManager.AppSettings["FrontEndUrl"];
+            model.UserImagePath = imgUrl + data.ImagePath;
 
             return model;
         }

@@ -66,6 +66,10 @@
     <EntitySetMapping Name="TalkMasters">
       <EntityTypeMapping TypeName="GynacModel.TalkMaster">
         <MappingFragment StoreEntitySet="TalkMaster">
+          <ScalarProperty Name="BackupVideoLink" ColumnName="BackupVideoLink" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Talkdesc" ColumnName="Talkdesc" />
+          <ScalarProperty Name="PreViewVideoLink" ColumnName="PreViewVideoLink" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
@@ -178,6 +182,7 @@
     <EntitySetMapping Name="UserTalks">
       <EntityTypeMapping TypeName="GynacModel.UserTalk">
         <MappingFragment StoreEntitySet="UserTalks">
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -206,6 +211,7 @@
     <EntitySetMapping Name="ModuleMasters">
       <EntityTypeMapping TypeName="GynacModel.ModuleMaster">
         <MappingFragment StoreEntitySet="ModuleMaster">
+          <ScalarProperty Name="ModuleDesc" ColumnName="ModuleDesc" />
           <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
@@ -234,6 +240,10 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="GynacModel.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="IsParticipate" ColumnName="IsParticipate" />
+          <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+          <ScalarProperty Name="IsLogin" ColumnName="IsLogin" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
           <ScalarProperty Name="Transaction_Status" ColumnName="Transaction_Status" />
@@ -261,6 +271,8 @@
     <EntitySetMapping Name="Faculties">
       <EntityTypeMapping TypeName="GynacModel.Faculty">
         <MappingFragment StoreEntitySet="Faculty">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
           <ScalarProperty Name="AspNetUsersId" ColumnName="AspNetUsersId" />
           <ScalarProperty Name="Update_Date" ColumnName="Update_Date" />
           <ScalarProperty Name="Insert_Date" ColumnName="Insert_Date" />
@@ -272,5 +284,193 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="GynacModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="GynacModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="GynacModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="GynacModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RatingMasters">
+      <EntityTypeMapping TypeName="GynacModel.RatingMaster">
+        <MappingFragment StoreEntitySet="RatingMaster">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="RatingName" ColumnName="RatingName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserBookMarks">
+      <EntityTypeMapping TypeName="GynacModel.UserBookMark">
+        <MappingFragment StoreEntitySet="UserBookMark">
+          <ScalarProperty Name="TalkId" ColumnName="TalkId" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="BookMarkTime" ColumnName="BookMarkTime" />
+          <ScalarProperty Name="BookMarkName" ColumnName="BookMarkName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRatings">
+      <EntityTypeMapping TypeName="GynacModel.UserRating">
+        <MappingFragment StoreEntitySet="UserRating">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="RateMark" ColumnName="RateMark" />
+          <ScalarProperty Name="RatId" ColumnName="RatId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserRatingId" ColumnName="UserRatingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="GynacModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRole">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="Delete_User_BookMark" FunctionName="GynacModel.Store.Delete_User_BookMark" />
+    <FunctionImportMapping FunctionImportName="Get_Talk_Video" FunctionName="GynacModel.Store.Get_Talk_Video">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GynacModel.Get_Talk_Video_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+          <ScalarProperty Name="PreViewVideoLink" ColumnName="PreViewVideoLink" />
+          <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+          <ScalarProperty Name="ModulId" ColumnName="ModulId" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="Talkdesc" ColumnName="Talkdesc" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="BackupVideoLink" ColumnName="BackupVideoLink" />
+          <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
+          <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_Tutorial_Summary" FunctionName="GynacModel.Store.Get_Tutorial_Summary">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GynacModel.Get_Tutorial_Summary_Result">
+          <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+          <ScalarProperty Name="TotalTalks" ColumnName="TotalTalks" />
+          <ScalarProperty Name="TotalCompletedTalks" ColumnName="TotalCompletedTalks" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_User_BookMark" FunctionName="GynacModel.Store.Get_User_BookMark">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GynacModel.Get_User_BookMark_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="BookMarkName" ColumnName="BookMarkName" />
+          <ScalarProperty Name="BookMarkTime" ColumnName="BookMarkTime" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="TalkId" ColumnName="TalkId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_User_Images" FunctionName="GynacModel.Store.Get_User_Images">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GynacModel.Get_User_Images_Result">
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="ModuleImageId" ColumnName="ModuleImageId" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="ModuleDesc" ColumnName="ModuleDesc" />
+          <ScalarProperty Name="SampleImage" ColumnName="SampleImage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_User_Notification" FunctionName="GynacModel.Store.Get_User_Notification">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GynacModel.Get_User_Notification_Result">
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_User_Ratings" FunctionName="GynacModel.Store.Get_User_Ratings">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GynacModel.Get_User_Ratings_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RatingName" ColumnName="RatingName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_User_Talks" FunctionName="GynacModel.Store.Get_User_Talks">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GynacModel.Get_User_Talks_Result">
+          <ScalarProperty Name="TalkId" ColumnName="TalkId" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="TalkName" ColumnName="TalkName" />
+          <ScalarProperty Name="Talkdesc" ColumnName="Talkdesc" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Insert_User_BookMark" FunctionName="GynacModel.Store.Insert_User_BookMark" />
+    <FunctionImportMapping FunctionImportName="Update_IsParticipate" FunctionName="GynacModel.Store.Update_IsParticipate" />
+    <FunctionImportMapping FunctionImportName="Update_Notification" FunctionName="GynacModel.Store.Update_Notification" />
+    <FunctionImportMapping FunctionImportName="Update_SignIn_User" FunctionName="GynacModel.Store.Update_SignIn_User" />
+    <FunctionImportMapping FunctionImportName="Update_SignOut_User" FunctionName="GynacModel.Store.Update_SignOut_User" />
+    <FunctionImportMapping FunctionImportName="Update_User_Ratings" FunctionName="GynacModel.Store.Update_User_Ratings" />
+    <FunctionImportMapping FunctionImportName="Update_User_Talk" FunctionName="GynacModel.Store.Update_User_Talk" />
+    <FunctionImportMapping FunctionImportName="Update_UserIp" FunctionName="GynacModel.Store.Update_UserIp" />
+    <FunctionImportMapping FunctionImportName="Update_UserTalk_Commet" FunctionName="GynacModel.Store.Update_UserTalk_Commet" />
+    <FunctionImportMapping FunctionImportName="Update_UserTalk_Exam" FunctionName="GynacModel.Store.Update_UserTalk_Exam" />
+    <FunctionImportMapping FunctionImportName="Update_UserTalk_Status" FunctionName="GynacModel.Store.Update_UserTalk_Status" />
+    <FunctionImportMapping FunctionImportName="Upload_Module_Image" FunctionName="GynacModel.Store.Upload_Module_Image" />
   </EntityContainerMapping>
 </Mapping>

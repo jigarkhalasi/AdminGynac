@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Sculptor.Gynac.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -70,6 +72,106 @@ namespace Sculptor.Gynac.Repository.UserTalks
 
                 return (_contex.SaveChanges() > 0 ? true : false);
             });
+        }
+
+
+        public IEnumerable<TutorialSummaryModel> TutorialSummary(int userId)
+        {
+            // return await Task.Run(() =>
+            // {
+            var model = new List<TutorialSummaryModel>();
+            
+            
+            
+            var ds = _contex.Get_Tutorial_Summary(userId);
+            foreach (var item in ds)            
+            {
+                var data = new TutorialSummaryModel();
+                data.SessionName = item.SessionName;
+                data.TotalTalks = (item.TotalTalks != 0 && item.TotalTalks != null) ? item.TotalTalks : 0;
+                data.TotalCompletedTalks = (item.TotalCompletedTalks != 0 && item.TotalCompletedTalks != null) ? item.TotalCompletedTalks : 0;
+                data.TotalPendingTalks = (item.TotalCompletedTalks != 0 && item.TotalCompletedTalks != null) ? data.TotalTalks - item.TotalCompletedTalks : 0;
+
+                model.Add(data);
+            }
+            return model.ToList();
+            //try
+            //{
+            //    DataSet ds = _contex.Get_Tutorial_Summary(userId);
+
+            //    if (ds != null && ds.Tables[0].Rows[0][0].ToString() == "Session 1")
+            //    {
+            //        int i = 0;
+            //        int moduleCountCompleted = 0;
+            //        int moduleCountPending = 0;
+            //        int finalmoduleCountCompleted = 0;
+            //        foreach (DataRow row in ds.Tables[0].Rows)
+            //        {
+            //            var data = new TutorialSummaryModel();
+            //            if (row["SessionName"].ToString() == ds.Tables[1].Rows[i]["SessionName"].ToString())
+            //            {
+            //                data.SessionName = row["SessionName"].ToString();
+            //                data.TotalTalks = Convert.ToInt32(row["TotalTalks"].ToString());
+            //                data.TotalPendingTalks = (row["TotalCompletedTalks"].ToString() != "") ? Convert.ToInt32(row["TotalCompletedTalks"].ToString()) : 0;
+            //                data.TotalCompletedTalks = (row["TotalCompletedTalks"].ToString() != "") ? data.TotalTalks - data.TotalPendingTalks : 0;
+            //                data.TotalModules = Convert.ToInt32(ds.Tables[1].Rows[i]["TotalModules"].ToString());
+            //                moduleCountCompleted = 0;
+            //                moduleCountPending = 0;
+            //                finalmoduleCountCompleted = 0;
+            //                if (ds.Tables[2] != null && ds.Tables[2].Rows.Count > i)
+            //                {
+            //                    //var mid = (ds.Tables[2].Rows[i]["SessionId"].ToString() != "") ? ds.Tables[2].Rows[i]["SessionId"].ToString() : "0";
+            //                    if (Convert.ToInt32(ds.Tables[1].Rows[i]["SessionId"].ToString()) == Convert.ToInt32(ds.Tables[2].Rows[i]["SessionId"].ToString()))
+            //                    {
+            //                        if (ds.Tables[3] != null)
+            //                        {
+
+            //                            foreach (DataRow row1 in ds.Tables[3].Rows)
+            //                            {
+            //                                if (Convert.ToInt32(ds.Tables[2].Rows[i]["ModuleId"].ToString()) == Convert.ToInt32(row1["ModulId"].ToString()))
+            //                                {
+            //                                    if (row1["isStatus"].ToString() == "1")
+            //                                    {
+            //                                        moduleCountCompleted++;
+            //                                    }
+            //                                    else
+            //                                    {
+            //                                        moduleCountPending++;
+            //                                    }
+
+            //                                    if (Convert.ToInt32(ds.Tables[2].Rows[i]["TotalModuleImage"].ToString()) == moduleCountCompleted)
+            //                                    {
+            //                                        finalmoduleCountCompleted++;
+            //                                        data.TotalCompletedModules = finalmoduleCountCompleted;
+            //                                    }
+            //                                }
+
+            //                            }
+            //                        }
+            //                    }
+            //                    else
+            //                    {
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    data.TotalPendingModules = 0;
+            //                    data.TotalCompletedModules = 0;
+            //                    data.TotalModules = 0;
+            //                }
+            //                model.Add(data);
+            //            }
+            //            i++;
+            //        }
+            //    }
+            //}
+            //catch
+            //{
+
+            //    throw;
+            //}
+            
+            //});
         }
     }
 }
