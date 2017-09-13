@@ -22,7 +22,7 @@ namespace Sculptor.Gynac.Repository
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
     
-        public virtual User User { get; set; }
         public virtual Faculty Faculty { get; set; }
+        public virtual User User { get; set; }
     }
 }

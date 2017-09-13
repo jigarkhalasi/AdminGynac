@@ -52,6 +52,7 @@ namespace Sculptor.Gynac.Repository.Faculties
             model.ModuleName = data.ModuleMaster.Name;            
             model.SampleImagePath = data.ModuleImage.SampleImage;
             model.Description = data.ModuleImage.Description;
+            model.UserId = data.UserId;
 
             var imgUrl = System.Configuration.ConfigurationManager.AppSettings["FrontEndUrl"];
             model.UserImagePath = imgUrl + data.ImagePath;
@@ -62,8 +63,44 @@ namespace Sculptor.Gynac.Repository.Faculties
         public async Task<bool> ReviewImage(ReviewCommentModel model)
         {
             var data = await _contex.UserModuleImages.FindAsync(model.UserModuleImageId);
+
             data.Comment = model.Comment;
             data.IsStatus = model.IsStatus;
+
+            await _contex.SaveChangesAsync();
+
+
+            var sampleModuleImageCount = _contex.ModuleImages.Where(m => m.ModulId == model.ModuleId).Count();
+
+            var userModuleImageCount = _contex.UserModuleImages.Where(m => m.ModulId == model.ModuleId && m.UserId == model.UserId && m.IsStatus == 1).Count();
+
+            var userImageData = _contex.UserModuleImages.Where(m => m.ModulId == model.ModuleId && m.UserId == model.UserId).ToList();
+
+            var userTalksList = _contex.UserTalks.Where(m => m.ModuleId == model.ModuleId && m.UserId == model.UserId).ToList();
+
+            if (sampleModuleImageCount == userModuleImageCount)
+            {
+                for (int i = 0; i < userImageData.Count(); i++)
+                {
+                    userImageData[i].IsModuleClear = 1;
+                }
+
+                for (int i = 0; i < userTalksList.Count(); i++)
+                {
+                    userTalksList[i].IsModuleClear = 2;
+                }
+            }
+            else {
+                for (int i = 0; i < userImageData.Count(); i++)
+                {
+                    userImageData[i].IsModuleClear = 0;
+                }
+
+                for (int i = 0; i < userTalksList.Count(); i++)
+                {
+                    userTalksList[i].IsModuleClear = 1;
+                }
+            }           
 
             return await _contex.SaveChangesAsync() > 0 ? true : false;
         }

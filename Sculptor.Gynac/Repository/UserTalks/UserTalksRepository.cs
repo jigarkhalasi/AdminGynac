@@ -33,8 +33,9 @@ namespace Sculptor.Gynac.Repository.UserTalks
                         dataModel.IsActive = 0;
                         dataModel.IsVideoStatus = 0;
                         dataModel.IsExamlear = 0;
+                        dataModel.IsModuleClear = 0;
+                        dataModel.ModuleId = _contex.TalkMasters.Where(t => t.Id == item).FirstOrDefault().ModulId;
                         _contex.UserTalks.Add(dataModel);
-
                     }
                     _contex.SaveChanges();
                 }
@@ -114,9 +115,21 @@ namespace Sculptor.Gynac.Repository.UserTalks
                             {
                                 data.SessionName = row["SessionName"].ToString();
                                 data.TotalTalks = Convert.ToInt32(row["TotalTalks"].ToString());
-                                data.TotalPendingTalks = (row["TotalCompletedTalks"].ToString() != "") ? Convert.ToInt32(row["TotalCompletedTalks"].ToString()) : 0;
-                                data.TotalCompletedTalks = (row["TotalCompletedTalks"].ToString() != "") ? data.TotalTalks - data.TotalPendingTalks : 0;
-                                data.TotalModules = Convert.ToInt32(ds.Tables[1].Rows[i]["TotalModules"].ToString());
+                                if (row["TotalCompletedTalks"].ToString() != "")
+                                {
+
+                                    data.TotalCompletedTalks = (row["TotalCompletedTalks"].ToString() != "") ? Convert.ToInt32(row["TotalCompletedTalks"].ToString()) : 0;
+                                    data.TotalPendingTalks = (row["TotalCompletedTalks"].ToString() != "") ? data.TotalTalks - data.TotalCompletedTalks : data.TotalTalks;
+                                    data.TotalModules = Convert.ToInt32(ds.Tables[1].Rows[i]["TotalModules"].ToString());
+
+                                }
+                                else
+                                {
+                                    data.TotalCompletedTalks = 0;
+                                    data.TotalPendingTalks = 0;
+                                    data.TotalTalks = 0;
+                                    data.TotalModules = 0;
+                                } 
                                 
                                 moduleCountCompleted = 0;
                                 moduleCountPending = 0;
@@ -128,7 +141,7 @@ namespace Sculptor.Gynac.Repository.UserTalks
                                    
                                     if (Convert.ToInt32(ds.Tables[1].Rows[i]["SessionId"].ToString()) == Convert.ToInt32(ds.Tables[2].Rows[i]["SessionId"].ToString()))
                                     {
-                                        if (ds.Tables[3] != null)
+                                        if (ds.Tables[3] != null && ds.Tables[3].Rows.Count > 0)
                                         {
 
                                             foreach (DataRow row1 in ds.Tables[3].Rows)
@@ -155,6 +168,10 @@ namespace Sculptor.Gynac.Repository.UserTalks
 
                                             }
                                         }
+                                        else {
+                                            data.TotalCompletedModules = 0;
+                                            data.TotalPendingModules = data.TotalModules;
+                                        }
                                     }
                                     else
                                     {
@@ -164,9 +181,9 @@ namespace Sculptor.Gynac.Repository.UserTalks
                                 }
                                 else
                                 {
-                                    data.TotalPendingModules = 0;
+                                    data.TotalPendingModules = data.TotalModules;
                                     data.TotalCompletedModules = 0;
-                                    data.TotalModules = 0;                                    
+                                  //  data.TotalModules = 0;                                    
                                 }                                
                                 model.Add(data);
                             }

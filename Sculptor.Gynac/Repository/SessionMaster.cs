@@ -16,8 +16,8 @@ namespace Sculptor.Gynac.Repository
     {
         public SessionMaster()
         {
-            this.TalkMasters = new HashSet<TalkMaster>();
             this.ModuleMasters = new HashSet<ModuleMaster>();
+            this.TalkMasters = new HashSet<TalkMaster>();
         }
     
         public int Id { get; set; }
@@ -25,7 +25,7 @@ namespace Sculptor.Gynac.Repository
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
     
-        public virtual ICollection<TalkMaster> TalkMasters { get; set; }
         public virtual ICollection<ModuleMaster> ModuleMasters { get; set; }
+        public virtual ICollection<TalkMaster> TalkMasters { get; set; }
     }
 }

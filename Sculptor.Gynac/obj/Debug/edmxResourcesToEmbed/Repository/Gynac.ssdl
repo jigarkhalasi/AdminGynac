@@ -257,6 +257,7 @@
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="Faculty_Id" Type="int" />
+    <Property Name="IsModuleClear" Type="int" />
   </EntityType>
   <EntityType Name="UserRating">
     <Key>
@@ -283,6 +284,8 @@
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="ModuleId" Type="int" />
+    <Property Name="IsModuleClear" Type="int" />
   </EntityType>
   <Association Name="FK__Faculty__AspNetU__0C50D423">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
@@ -779,6 +782,8 @@
   </Function>
   <Function Name="Update_UserTalk_Exam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserTalkId" Type="int" Mode="In" />
+    <Parameter Name="ModuleId" Type="int" Mode="In" />
+    <Parameter Name="User_Id" Type="int" Mode="In" />
   </Function>
   <Function Name="Update_UserTalk_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserTalkId" Type="int" Mode="In" />

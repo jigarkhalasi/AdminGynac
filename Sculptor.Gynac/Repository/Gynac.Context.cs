@@ -27,27 +27,27 @@ namespace Sculptor.Gynac.Repository
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Course> Courses { get; set; }
-        public virtual DbSet<ModuleImage> ModuleImages { get; set; }
-        public virtual DbSet<QuestionMaster> QuestionMasters { get; set; }
-        public virtual DbSet<QuetionOptionMaster> QuetionOptionMasters { get; set; }
-        public virtual DbSet<SessionMaster> SessionMasters { get; set; }
-        public virtual DbSet<TalkMaster> TalkMasters { get; set; }
-        public virtual DbSet<User_Course> User_Course { get; set; }
-        public virtual DbSet<UserAnswer> UserAnswers { get; set; }
-        public virtual DbSet<UserTalk> UserTalks { get; set; }
-        public virtual DbSet<Notification> Notifications { get; set; }
-        public virtual DbSet<ModuleMaster> ModuleMasters { get; set; }
-        public virtual DbSet<UserModuleImage> UserModuleImages { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Faculty> Faculties { get; set; }
+        public virtual DbSet<ModuleImage> ModuleImages { get; set; }
+        public virtual DbSet<ModuleMaster> ModuleMasters { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<QuestionMaster> QuestionMasters { get; set; }
+        public virtual DbSet<QuetionOptionMaster> QuetionOptionMasters { get; set; }
         public virtual DbSet<RatingMaster> RatingMasters { get; set; }
+        public virtual DbSet<SessionMaster> SessionMasters { get; set; }
+        public virtual DbSet<TalkMaster> TalkMasters { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User_Course> User_Course { get; set; }
+        public virtual DbSet<UserAnswer> UserAnswers { get; set; }
         public virtual DbSet<UserBookMark> UserBookMarks { get; set; }
+        public virtual DbSet<UserModuleImage> UserModuleImages { get; set; }
         public virtual DbSet<UserRating> UserRatings { get; set; }
+        public virtual DbSet<UserTalk> UserTalks { get; set; }
     
         public virtual ObjectResult<Nullable<int>> Activate_User_Course(string guid, string transactionId, string transactionStatus, string orderStatus)
         {
@@ -68,6 +68,15 @@ namespace Sculptor.Gynac.Repository
                 new ObjectParameter("OrderStatus", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Activate_User_Course", guidParameter, transactionIdParameter, transactionStatusParameter, orderStatusParameter);
+        }
+    
+        public virtual int Delete_User_BookMark(Nullable<int> bookMarkId)
+        {
+            var bookMarkIdParameter = bookMarkId.HasValue ?
+                new ObjectParameter("BookMarkId", bookMarkId) :
+                new ObjectParameter("BookMarkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_User_BookMark", bookMarkIdParameter);
         }
     
         public virtual int Delete_User_Course(Nullable<int> user_Id)
@@ -106,6 +115,19 @@ namespace Sculptor.Gynac.Repository
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_All_Course_Result>("Get_All_Course");
         }
     
+        public virtual ObjectResult<Get_Talk_Video_Result> Get_Talk_Video(Nullable<int> talkId, Nullable<int> userTalkId)
+        {
+            var talkIdParameter = talkId.HasValue ?
+                new ObjectParameter("TalkId", talkId) :
+                new ObjectParameter("TalkId", typeof(int));
+    
+            var userTalkIdParameter = userTalkId.HasValue ?
+                new ObjectParameter("UserTalkId", userTalkId) :
+                new ObjectParameter("UserTalkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Talk_Video_Result>("Get_Talk_Video", talkIdParameter, userTalkIdParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> Get_Total_Course_Cost(string guid)
         {
             var guidParameter = guid != null ?
@@ -113,6 +135,68 @@ namespace Sculptor.Gynac.Repository
                 new ObjectParameter("Guid", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Get_Total_Course_Cost", guidParameter);
+        }
+    
+        public virtual ObjectResult<Get_Tutorial_Summary_Result> Get_Tutorial_Summary(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Tutorial_Summary_Result>("Get_Tutorial_Summary", user_IdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_BookMark_Result> Get_User_BookMark(Nullable<int> user_Id, Nullable<int> talkId)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            var talkIdParameter = talkId.HasValue ?
+                new ObjectParameter("TalkId", talkId) :
+                new ObjectParameter("TalkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_BookMark_Result>("Get_User_BookMark", user_IdParameter, talkIdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_Images_Result> Get_User_Images(Nullable<int> moduleId, Nullable<int> userId)
+        {
+            var moduleIdParameter = moduleId.HasValue ?
+                new ObjectParameter("ModuleId", moduleId) :
+                new ObjectParameter("ModuleId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Images_Result>("Get_User_Images", moduleIdParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_Notification_Result> Get_User_Notification(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Notification_Result>("Get_User_Notification", user_IdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_Ratings_Result> Get_User_Ratings(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Ratings_Result>("Get_User_Ratings", user_IdParameter);
+        }
+    
+        public virtual ObjectResult<Get_User_Talks_Result> Get_User_Talks(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Talks_Result>("Get_User_Talks", user_IdParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> Insert_User(string title, string first_Name, string middle_Name, string last_Name, string email, Nullable<bool> email_Verified, string mobile, string password, string professional_Specialty, string educational_Qualification, string street_Address, string city_Town, string country, string institution_Work_Place, string where_Hear)
@@ -180,6 +264,27 @@ namespace Sculptor.Gynac.Repository
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Insert_User", titleParameter, first_NameParameter, middle_NameParameter, last_NameParameter, emailParameter, email_VerifiedParameter, mobileParameter, passwordParameter, professional_SpecialtyParameter, educational_QualificationParameter, street_AddressParameter, city_TownParameter, countryParameter, institution_Work_PlaceParameter, where_HearParameter);
         }
     
+        public virtual int Insert_User_BookMark(Nullable<int> user_Id, string bookMarkName, string bookMarkTime, Nullable<int> talkId)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            var bookMarkNameParameter = bookMarkName != null ?
+                new ObjectParameter("BookMarkName", bookMarkName) :
+                new ObjectParameter("BookMarkName", typeof(string));
+    
+            var bookMarkTimeParameter = bookMarkTime != null ?
+                new ObjectParameter("BookMarkTime", bookMarkTime) :
+                new ObjectParameter("BookMarkTime", typeof(string));
+    
+            var talkIdParameter = talkId.HasValue ?
+                new ObjectParameter("TalkId", talkId) :
+                new ObjectParameter("TalkId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_User_BookMark", user_IdParameter, bookMarkNameParameter, bookMarkTimeParameter, talkIdParameter);
+        }
+    
         public virtual ObjectResult<Insert_User_Course_Result> Insert_User_Course(Nullable<int> user_Id, Nullable<int> course_Id, Nullable<System.DateTime> registered_Date, Nullable<System.DateTime> registered_Till, string payment_Mode, Nullable<decimal> payment_Amount, string payment_Currency)
         {
             var user_IdParameter = user_Id.HasValue ?
@@ -228,6 +333,46 @@ namespace Sculptor.Gynac.Repository
                 new ObjectParameter("Guid", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Reset_Password", emailParameter, passwordParameter, guidParameter);
+        }
+    
+        public virtual int Update_IsParticipate(Nullable<int> user_Id, Nullable<bool> isParticipate)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            var isParticipateParameter = isParticipate.HasValue ?
+                new ObjectParameter("IsParticipate", isParticipate) :
+                new ObjectParameter("IsParticipate", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_IsParticipate", user_IdParameter, isParticipateParameter);
+        }
+    
+        public virtual int Update_Notification(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_Notification", userIdParameter);
+        }
+    
+        public virtual int Update_SignIn_User(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_SignIn_User", user_IdParameter);
+        }
+    
+        public virtual int Update_SignOut_User(Nullable<int> user_Id)
+        {
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_SignOut_User", user_IdParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> Update_User(Nullable<int> user_Id, string title, string first_Name, string middle_Name, string last_Name, string email, Nullable<bool> email_Verified, string mobile, string password, string professional_Specialty, string educational_Qualification, string street_Address, string city_Town, string country, string institution_Work_Place, string where_Hear)
@@ -312,173 +457,6 @@ namespace Sculptor.Gynac.Repository
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_User_Email_Verification", user_IdParameter, emailParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> Verify_User(string email, string password)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
-    
-            var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Verify_User", emailParameter, passwordParameter);
-        }
-    
-        public virtual ObjectResult<Verify_User_By_Guid_Result> Verify_User_By_Guid(string guid)
-        {
-            var guidParameter = guid != null ?
-                new ObjectParameter("Guid", guid) :
-                new ObjectParameter("Guid", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Verify_User_By_Guid_Result>("Verify_User_By_Guid", guidParameter);
-        }
-    
-        public virtual int Delete_User_BookMark(Nullable<int> bookMarkId)
-        {
-            var bookMarkIdParameter = bookMarkId.HasValue ?
-                new ObjectParameter("BookMarkId", bookMarkId) :
-                new ObjectParameter("BookMarkId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_User_BookMark", bookMarkIdParameter);
-        }
-    
-        public virtual ObjectResult<Get_Talk_Video_Result> Get_Talk_Video(Nullable<int> talkId, Nullable<int> userTalkId)
-        {
-            var talkIdParameter = talkId.HasValue ?
-                new ObjectParameter("TalkId", talkId) :
-                new ObjectParameter("TalkId", typeof(int));
-    
-            var userTalkIdParameter = userTalkId.HasValue ?
-                new ObjectParameter("UserTalkId", userTalkId) :
-                new ObjectParameter("UserTalkId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Talk_Video_Result>("Get_Talk_Video", talkIdParameter, userTalkIdParameter);
-        }
-    
-        public virtual ObjectResult<Get_Tutorial_Summary_Result> Get_Tutorial_Summary(Nullable<int> user_Id)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Tutorial_Summary_Result>("Get_Tutorial_Summary", user_IdParameter);
-        }
-    
-        public virtual ObjectResult<Get_User_BookMark_Result> Get_User_BookMark(Nullable<int> user_Id, Nullable<int> talkId)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            var talkIdParameter = talkId.HasValue ?
-                new ObjectParameter("TalkId", talkId) :
-                new ObjectParameter("TalkId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_BookMark_Result>("Get_User_BookMark", user_IdParameter, talkIdParameter);
-        }
-    
-        public virtual ObjectResult<Get_User_Images_Result> Get_User_Images(Nullable<int> moduleId, Nullable<int> userId)
-        {
-            var moduleIdParameter = moduleId.HasValue ?
-                new ObjectParameter("ModuleId", moduleId) :
-                new ObjectParameter("ModuleId", typeof(int));
-    
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("UserId", userId) :
-                new ObjectParameter("UserId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Images_Result>("Get_User_Images", moduleIdParameter, userIdParameter);
-        }
-    
-        public virtual ObjectResult<Get_User_Notification_Result> Get_User_Notification(Nullable<int> user_Id)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Notification_Result>("Get_User_Notification", user_IdParameter);
-        }
-    
-        public virtual ObjectResult<Get_User_Ratings_Result> Get_User_Ratings(Nullable<int> user_Id)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Ratings_Result>("Get_User_Ratings", user_IdParameter);
-        }
-    
-        public virtual ObjectResult<Get_User_Talks_Result> Get_User_Talks(Nullable<int> user_Id)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_User_Talks_Result>("Get_User_Talks", user_IdParameter);
-        }
-    
-        public virtual int Insert_User_BookMark(Nullable<int> user_Id, string bookMarkName, string bookMarkTime, Nullable<int> talkId)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            var bookMarkNameParameter = bookMarkName != null ?
-                new ObjectParameter("BookMarkName", bookMarkName) :
-                new ObjectParameter("BookMarkName", typeof(string));
-    
-            var bookMarkTimeParameter = bookMarkTime != null ?
-                new ObjectParameter("BookMarkTime", bookMarkTime) :
-                new ObjectParameter("BookMarkTime", typeof(string));
-    
-            var talkIdParameter = talkId.HasValue ?
-                new ObjectParameter("TalkId", talkId) :
-                new ObjectParameter("TalkId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_User_BookMark", user_IdParameter, bookMarkNameParameter, bookMarkTimeParameter, talkIdParameter);
-        }
-    
-        public virtual int Update_IsParticipate(Nullable<int> user_Id, Nullable<bool> isParticipate)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            var isParticipateParameter = isParticipate.HasValue ?
-                new ObjectParameter("IsParticipate", isParticipate) :
-                new ObjectParameter("IsParticipate", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_IsParticipate", user_IdParameter, isParticipateParameter);
-        }
-    
-        public virtual int Update_Notification(Nullable<int> userId)
-        {
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("UserId", userId) :
-                new ObjectParameter("UserId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_Notification", userIdParameter);
-        }
-    
-        public virtual int Update_SignIn_User(Nullable<int> user_Id)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_SignIn_User", user_IdParameter);
-        }
-    
-        public virtual int Update_SignOut_User(Nullable<int> user_Id)
-        {
-            var user_IdParameter = user_Id.HasValue ?
-                new ObjectParameter("User_Id", user_Id) :
-                new ObjectParameter("User_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_SignOut_User", user_IdParameter);
-        }
-    
         public virtual int Update_User_Ratings(Nullable<int> userRatingId, Nullable<int> user_Id, Nullable<int> ratingId, Nullable<int> rateMark)
         {
             var userRatingIdParameter = userRatingId.HasValue ?
@@ -539,13 +517,21 @@ namespace Sculptor.Gynac.Repository
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_UserTalk_Commet", userTalkIdParameter, commentParameter);
         }
     
-        public virtual int Update_UserTalk_Exam(Nullable<int> userTalkId)
+        public virtual int Update_UserTalk_Exam(Nullable<int> userTalkId, Nullable<int> moduleId, Nullable<int> user_Id)
         {
             var userTalkIdParameter = userTalkId.HasValue ?
                 new ObjectParameter("UserTalkId", userTalkId) :
                 new ObjectParameter("UserTalkId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_UserTalk_Exam", userTalkIdParameter);
+            var moduleIdParameter = moduleId.HasValue ?
+                new ObjectParameter("ModuleId", moduleId) :
+                new ObjectParameter("ModuleId", typeof(int));
+    
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_UserTalk_Exam", userTalkIdParameter, moduleIdParameter, user_IdParameter);
         }
     
         public virtual int Update_UserTalk_Status(Nullable<int> userTalkId, Nullable<bool> isVideoStatus, Nullable<bool> isExamlear)
@@ -588,6 +574,28 @@ namespace Sculptor.Gynac.Repository
                 new ObjectParameter("UserId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Upload_Module_Image", userModuleImageIdParameter, imagePathParameter, moduleIdParameter, moduleImageIdParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Verify_User(string email, string password)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Verify_User", emailParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<Verify_User_By_Guid_Result> Verify_User_By_Guid(string guid)
+        {
+            var guidParameter = guid != null ?
+                new ObjectParameter("Guid", guid) :
+                new ObjectParameter("Guid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Verify_User_By_Guid_Result>("Verify_User_By_Guid", guidParameter);
         }
     }
 }

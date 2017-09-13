@@ -96,6 +96,16 @@ namespace Sculptor.Gynac.Controllers
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);
-        } 
+        }
+
+        [HttpPost]
+        //GetSampleImages
+        public async Task<ActionResult> DeleteSampleImage(Int32 sampleModuleId)
+        {
+            var SampleImages = await _moduleRepo.DeleteSampleImage(sampleModuleId);            
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
+
+    
 }

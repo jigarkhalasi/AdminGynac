@@ -15,8 +15,9 @@ namespace Sculptor.Gynac.Repository
     {
         public int ModuleId { get; set; }
         public int ModuleImageId { get; set; }
-        public string ModuleName { get; set; }
         public string ModuleDesc { get; set; }
+        public string ModuleName { get; set; }
+        public string ModuleImageDesc { get; set; }
         public string SampleImage { get; set; }
     }
 }
