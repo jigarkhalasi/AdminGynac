@@ -36,18 +36,15 @@ namespace Sculptor.Gynac.Repository
         public virtual DbSet<ModuleImage> ModuleImages { get; set; }
         public virtual DbSet<ModuleMaster> ModuleMasters { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
-        public virtual DbSet<QuestionMaster> QuestionMasters { get; set; }
-        public virtual DbSet<QuetionOptionMaster> QuetionOptionMasters { get; set; }
         public virtual DbSet<RatingMaster> RatingMasters { get; set; }
         public virtual DbSet<SessionMaster> SessionMasters { get; set; }
         public virtual DbSet<TalkMaster> TalkMasters { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<User_Course> User_Course { get; set; }
-        public virtual DbSet<UserAnswer> UserAnswers { get; set; }
         public virtual DbSet<UserBookMark> UserBookMarks { get; set; }
-        public virtual DbSet<UserModuleImage> UserModuleImages { get; set; }
         public virtual DbSet<UserRating> UserRatings { get; set; }
         public virtual DbSet<UserTalk> UserTalks { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserModuleImage> UserModuleImages { get; set; }
     
         public virtual ObjectResult<Nullable<int>> Activate_User_Course(string guid, string transactionId, string transactionStatus, string orderStatus)
         {

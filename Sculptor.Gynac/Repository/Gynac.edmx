@@ -121,28 +121,6 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="QuestionMaster">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Question" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Ans" Type="nvarchar(max)" />
-          <Property Name="ImagePath" Type="nvarchar(max)" />
-          <Property Name="TalkId" Type="int" />
-          <Property Name="CreateDate" Type="datetime" />
-          <Property Name="UpdateDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="QuetionOptionMaster">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QueOption" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="QueId" Type="int" />
-          <Property Name="CreateDate" Type="datetime" />
-          <Property Name="UpdateDate" Type="datetime" />
-        </EntityType>
         <EntityType Name="RatingMaster">
           <Key>
             <PropertyRef Name="Id" />
@@ -207,6 +185,8 @@
           <Property Name="IpAddress" Type="nvarchar" MaxLength="200" />
           <Property Name="UserAgent" Type="nvarchar" MaxLength="200" />
           <Property Name="IsParticipate" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="User_Course">
           <Key>
@@ -224,17 +204,6 @@
           <Property Name="Transaction_Id" Type="varchar" MaxLength="100" />
           <Property Name="Transaction_Status" Type="varchar" MaxLength="150" />
           <Property Name="Order_Status" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="UserAnswer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IsValid" Type="int" />
-          <Property Name="QueOptionId" Type="int" />
-          <Property Name="QueId" Type="int" />
-          <Property Name="CreateDate" Type="datetime" />
-          <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserBookMark">
           <Key>
@@ -262,7 +231,6 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="Faculty_Id" Type="int" />
-          <Property Name="IsModuleClear" Type="int" />
         </EntityType>
         <EntityType Name="UserRating">
           <Key>
@@ -364,30 +332,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__QuestionM__TalkI__4316F928">
-          <End Role="TalkMaster" Type="Self.TalkMaster" Multiplicity="0..1" />
-          <End Role="QuestionMaster" Type="Self.QuestionMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TalkMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="QuestionMaster">
-              <PropertyRef Name="TalkId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__QuetionOp__QueId__45F365D3">
-          <End Role="QuestionMaster" Type="Self.QuestionMaster" Multiplicity="0..1" />
-          <End Role="QuetionOptionMaster" Type="Self.QuetionOptionMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuestionMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="QuetionOptionMaster">
-              <PropertyRef Name="QueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__TalkMaste__Facul__3E52440B">
           <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
           <End Role="TalkMaster" Type="Self.TalkMaster" Multiplicity="*" />
@@ -421,30 +365,6 @@
             </Principal>
             <Dependent Role="TalkMaster">
               <PropertyRef Name="SessionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserAnswe__QueId__49C3F6B7">
-          <End Role="QuestionMaster" Type="Self.QuestionMaster" Multiplicity="0..1" />
-          <End Role="UserAnswer" Type="Self.UserAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuestionMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserAnswer">
-              <PropertyRef Name="QueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserAnswe__QueOp__48CFD27E">
-          <End Role="QuetionOptionMaster" Type="Self.QuetionOptionMaster" Multiplicity="0..1" />
-          <End Role="UserAnswer" Type="Self.UserAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuetionOptionMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserAnswer">
-              <PropertyRef Name="QueOptionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -820,14 +740,11 @@
           <EntitySet Name="ModuleImage" EntityType="Self.ModuleImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleMaster" EntityType="Self.ModuleMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="QuestionMaster" EntityType="Self.QuestionMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="QuetionOptionMaster" EntityType="Self.QuetionOptionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RatingMaster" EntityType="Self.RatingMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SessionMaster" EntityType="Self.SessionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TalkMaster" EntityType="Self.TalkMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Course" EntityType="Self.User_Course" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserAnswer" EntityType="Self.UserAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBookMark" EntityType="Self.UserBookMark" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserModuleImage" EntityType="Self.UserModuleImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
@@ -856,14 +773,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__QuestionM__TalkI__4316F928" Association="Self.FK__QuestionM__TalkI__4316F928">
-            <End Role="TalkMaster" EntitySet="TalkMaster" />
-            <End Role="QuestionMaster" EntitySet="QuestionMaster" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QuetionOp__QueId__45F365D3" Association="Self.FK__QuetionOp__QueId__45F365D3">
-            <End Role="QuestionMaster" EntitySet="QuestionMaster" />
-            <End Role="QuetionOptionMaster" EntitySet="QuetionOptionMaster" />
-          </AssociationSet>
           <AssociationSet Name="FK__TalkMaste__Facul__3E52440B" Association="Self.FK__TalkMaste__Facul__3E52440B">
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="TalkMaster" EntitySet="TalkMaster" />
@@ -875,14 +784,6 @@
           <AssociationSet Name="FK__TalkMaste__Sessi__403A8C7D" Association="Self.FK__TalkMaste__Sessi__403A8C7D">
             <End Role="SessionMaster" EntitySet="SessionMaster" />
             <End Role="TalkMaster" EntitySet="TalkMaster" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserAnswe__QueId__49C3F6B7" Association="Self.FK__UserAnswe__QueId__49C3F6B7">
-            <End Role="QuestionMaster" EntitySet="QuestionMaster" />
-            <End Role="UserAnswer" EntitySet="UserAnswer" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserAnswe__QueOp__48CFD27E" Association="Self.FK__UserAnswe__QueOp__48CFD27E">
-            <End Role="QuetionOptionMaster" EntitySet="QuetionOptionMaster" />
-            <End Role="UserAnswer" EntitySet="UserAnswer" />
           </AssociationSet>
           <AssociationSet Name="FK__UserBookM__UserI__671F4F74" Association="Self.FK__UserBookM__UserI__671F4F74">
             <End Role="User" EntitySet="User" />
@@ -963,16 +864,11 @@
           <EntitySet Name="ModuleImages" EntityType="GynacModel.ModuleImage" />
           <EntitySet Name="ModuleMasters" EntityType="GynacModel.ModuleMaster" />
           <EntitySet Name="Notifications" EntityType="GynacModel.Notification" />
-          <EntitySet Name="QuestionMasters" EntityType="GynacModel.QuestionMaster" />
-          <EntitySet Name="QuetionOptionMasters" EntityType="GynacModel.QuetionOptionMaster" />
           <EntitySet Name="RatingMasters" EntityType="GynacModel.RatingMaster" />
           <EntitySet Name="SessionMasters" EntityType="GynacModel.SessionMaster" />
           <EntitySet Name="TalkMasters" EntityType="GynacModel.TalkMaster" />
-          <EntitySet Name="Users" EntityType="GynacModel.User" />
           <EntitySet Name="User_Course" EntityType="GynacModel.User_Course" />
-          <EntitySet Name="UserAnswers" EntityType="GynacModel.UserAnswer" />
           <EntitySet Name="UserBookMarks" EntityType="GynacModel.UserBookMark" />
-          <EntitySet Name="UserModuleImages" EntityType="GynacModel.UserModuleImage" />
           <EntitySet Name="UserRatings" EntityType="GynacModel.UserRating" />
           <EntitySet Name="UserTalks" EntityType="GynacModel.UserTalk" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="GynacModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -1007,17 +903,9 @@
             <End Role="Faculty" EntitySet="Faculties" />
             <End Role="TalkMaster" EntitySet="TalkMasters" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserModul__Facul__681373AD" Association="GynacModel.FK__UserModul__Facul__681373AD">
-            <End Role="Faculty" EntitySet="Faculties" />
-            <End Role="UserModuleImage" EntitySet="UserModuleImages" />
-          </AssociationSet>
           <AssociationSet Name="FK__ModuleIma__Modul__3B75D760" Association="GynacModel.FK__ModuleIma__Modul__3B75D760">
             <End Role="ModuleMaster" EntitySet="ModuleMasters" />
             <End Role="ModuleImage" EntitySet="ModuleImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserModul__Modul__5165187F" Association="GynacModel.FK__UserModul__Modul__5165187F">
-            <End Role="ModuleImage" EntitySet="ModuleImages" />
-            <End Role="UserModuleImage" EntitySet="UserModuleImages" />
           </AssociationSet>
           <AssociationSet Name="FK__ModuleMas__Sessi__38996AB5" Association="GynacModel.FK__ModuleMas__Sessi__38996AB5">
             <End Role="SessionMaster" EntitySet="SessionMasters" />
@@ -1026,30 +914,6 @@
           <AssociationSet Name="FK__TalkMaste__Modul__3F466844" Association="GynacModel.FK__TalkMaste__Modul__3F466844">
             <End Role="ModuleMaster" EntitySet="ModuleMasters" />
             <End Role="TalkMaster" EntitySet="TalkMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserModul__Modul__5070F446" Association="GynacModel.FK__UserModul__Modul__5070F446">
-            <End Role="ModuleMaster" EntitySet="ModuleMasters" />
-            <End Role="UserModuleImage" EntitySet="UserModuleImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Notificat__UserI__5FB337D6" Association="GynacModel.FK__Notificat__UserI__5FB337D6">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Notification" EntitySet="Notifications" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QuestionM__TalkI__4316F928" Association="GynacModel.FK__QuestionM__TalkI__4316F928">
-            <End Role="TalkMaster" EntitySet="TalkMasters" />
-            <End Role="QuestionMaster" EntitySet="QuestionMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QuetionOp__QueId__45F365D3" Association="GynacModel.FK__QuetionOp__QueId__45F365D3">
-            <End Role="QuestionMaster" EntitySet="QuestionMasters" />
-            <End Role="QuetionOptionMaster" EntitySet="QuetionOptionMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserAnswe__QueId__49C3F6B7" Association="GynacModel.FK__UserAnswe__QueId__49C3F6B7">
-            <End Role="QuestionMaster" EntitySet="QuestionMasters" />
-            <End Role="UserAnswer" EntitySet="UserAnswers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserAnswe__QueOp__48CFD27E" Association="GynacModel.FK__UserAnswe__QueOp__48CFD27E">
-            <End Role="QuetionOptionMaster" EntitySet="QuetionOptionMasters" />
-            <End Role="UserAnswer" EntitySet="UserAnswers" />
           </AssociationSet>
           <AssociationSet Name="FK__UserRatin__RatId__6BE40491" Association="GynacModel.FK__UserRatin__RatId__6BE40491">
             <End Role="RatingMaster" EntitySet="RatingMasters" />
@@ -1063,26 +927,6 @@
             <End Role="TalkMaster" EntitySet="TalkMasters" />
             <End Role="UserTalk" EntitySet="UserTalks" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserBookM__UserI__671F4F74" Association="GynacModel.FK__UserBookM__UserI__671F4F74">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserBookMark" EntitySet="UserBookMarks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserModul__UserI__52593CB8" Association="GynacModel.FK__UserModul__UserI__52593CB8">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserModuleImage" EntitySet="UserModuleImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserRatin__UserI__6CD828CA" Association="GynacModel.FK__UserRatin__UserI__6CD828CA">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserRating" EntitySet="UserRatings" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserTask__UserId__4D94879B" Association="GynacModel.FK__UserTask__UserId__4D94879B">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserTalk" EntitySet="UserTalks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Course_User" Association="GynacModel.FK_User_Course_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="User_Course" EntitySet="User_Course" />
-          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="GynacModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -1094,17 +938,17 @@
             <Parameter Name="OrderStatus" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Delete_User_BookMark">
-            <Parameter Name="BookMarkId" Mode="In" Type="Int32" />
+          <Parameter Name="BookMarkId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Delete_User_Course">
-            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+          <Parameter Name="User_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Email_Verified" ReturnType="Collection(Int32)">
             <Parameter Name="Guid" Mode="In" Type="String" />
             <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Forgot_Password" ReturnType="Collection(Int32)">
-            <Parameter Name="Email" Mode="In" Type="String" />
+          <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Get_All_Course" ReturnType="Collection(GynacModel.Get_All_Course_Result)" />
           <FunctionImport Name="Get_Talk_Video" ReturnType="Collection(GynacModel.Get_Talk_Video_Result)">
@@ -1112,10 +956,10 @@
             <Parameter Name="UserTalkId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get_Total_Course_Cost" ReturnType="Collection(Int32)">
-            <Parameter Name="Guid" Mode="In" Type="String" />
+          <Parameter Name="Guid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Get_Tutorial_Summary" ReturnType="Collection(GynacModel.Get_Tutorial_Summary_Result)">
-            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+          <Parameter Name="User_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get_User_BookMark" ReturnType="Collection(GynacModel.Get_User_BookMark_Result)">
             <Parameter Name="User_Id" Mode="In" Type="Int32" />
@@ -1126,13 +970,13 @@
             <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get_User_Notification" ReturnType="Collection(GynacModel.Get_User_Notification_Result)">
-            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+          <Parameter Name="User_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get_User_Ratings" ReturnType="Collection(GynacModel.Get_User_Ratings_Result)">
-            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+          <Parameter Name="User_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get_User_Talks" ReturnType="Collection(GynacModel.Get_User_Talks_Result)">
-            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+          <Parameter Name="User_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Insert_User" ReturnType="Collection(Int32)">
             <Parameter Name="Title" Mode="In" Type="String" />
@@ -1176,13 +1020,13 @@
             <Parameter Name="IsParticipate" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="Update_Notification">
-            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Update_SignIn_User">
-            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+          <Parameter Name="User_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Update_SignOut_User">
-            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+          <Parameter Name="User_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Update_User" ReturnType="Collection(Int32)">
             <Parameter Name="User_Id" Mode="In" Type="Int32" />
@@ -1213,7 +1057,7 @@
             <Parameter Name="RateMark" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Update_User_Talk">
-            <Parameter Name="User_TalkId" Mode="In" Type="Int32" />
+          <Parameter Name="User_TalkId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Update_UserIp">
             <Parameter Name="User_Id" Mode="In" Type="Int32" />
@@ -1246,8 +1090,46 @@
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Verify_User_By_Guid" ReturnType="Collection(GynacModel.Verify_User_By_Guid_Result)">
-            <Parameter Name="Guid" Mode="In" Type="String" />
+          <Parameter Name="Guid" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Users" EntityType="GynacModel.User" />
+          <EntitySet Name="UserModuleImages" EntityType="GynacModel.UserModuleImage" />
+          <AssociationSet Name="FK__UserModul__Facul__681373AD" Association="GynacModel.FK__UserModul__Facul__681373AD">
+            <End Role="Faculty" EntitySet="Faculties" />
+            <End Role="UserModuleImage" EntitySet="UserModuleImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserModul__Modul__5165187F" Association="GynacModel.FK__UserModul__Modul__5165187F">
+            <End Role="ModuleImage" EntitySet="ModuleImages" />
+            <End Role="UserModuleImage" EntitySet="UserModuleImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserModul__Modul__5070F446" Association="GynacModel.FK__UserModul__Modul__5070F446">
+            <End Role="ModuleMaster" EntitySet="ModuleMasters" />
+            <End Role="UserModuleImage" EntitySet="UserModuleImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__UserI__5FB337D6" Association="GynacModel.FK__Notificat__UserI__5FB337D6">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserBookM__UserI__671F4F74" Association="GynacModel.FK__UserBookM__UserI__671F4F74">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserBookMark" EntitySet="UserBookMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserModul__UserI__52593CB8" Association="GynacModel.FK__UserModul__UserI__52593CB8">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserModuleImage" EntitySet="UserModuleImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRatin__UserI__6CD828CA" Association="GynacModel.FK__UserRatin__UserI__6CD828CA">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserTask__UserId__4D94879B" Association="GynacModel.FK__UserTask__UserId__4D94879B">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserTalk" EntitySet="UserTalks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Course_User" Association="GynacModel.FK_User_Course_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User_Course" EntitySet="User_Course" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -1381,33 +1263,6 @@
           <NavigationProperty Name="Faculty" Relationship="GynacModel.FK__Notificat__Facul__5EBF139D" FromRole="Notification" ToRole="Faculty" />
           <NavigationProperty Name="User" Relationship="GynacModel.FK__Notificat__UserI__5FB337D6" FromRole="Notification" ToRole="User" />
         </EntityType>
-        <EntityType Name="QuestionMaster">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Question" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Ans" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TalkId" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="TalkMaster" Relationship="GynacModel.FK__QuestionM__TalkI__4316F928" FromRole="QuestionMaster" ToRole="TalkMaster" />
-          <NavigationProperty Name="QuetionOptionMasters" Relationship="GynacModel.FK__QuetionOp__QueId__45F365D3" FromRole="QuestionMaster" ToRole="QuetionOptionMaster" />
-          <NavigationProperty Name="UserAnswers" Relationship="GynacModel.FK__UserAnswe__QueId__49C3F6B7" FromRole="QuestionMaster" ToRole="UserAnswer" />
-        </EntityType>
-        <EntityType Name="QuetionOptionMaster">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QueOption" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="QueId" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="QuestionMaster" Relationship="GynacModel.FK__QuetionOp__QueId__45F365D3" FromRole="QuetionOptionMaster" ToRole="QuestionMaster" />
-          <NavigationProperty Name="UserAnswers" Relationship="GynacModel.FK__UserAnswe__QueOp__48CFD27E" FromRole="QuetionOptionMaster" ToRole="UserAnswer" />
-        </EntityType>
         <EntityType Name="RatingMaster">
           <Key>
             <PropertyRef Name="Id" />
@@ -1447,45 +1302,8 @@
           <Property Name="BackupVideoLink" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Faculty" Relationship="GynacModel.FK__TalkMaste__Facul__3E52440B" FromRole="TalkMaster" ToRole="Faculty" />
           <NavigationProperty Name="ModuleMaster" Relationship="GynacModel.FK__TalkMaste__Modul__3F466844" FromRole="TalkMaster" ToRole="ModuleMaster" />
-          <NavigationProperty Name="QuestionMasters" Relationship="GynacModel.FK__QuestionM__TalkI__4316F928" FromRole="TalkMaster" ToRole="QuestionMaster" />
           <NavigationProperty Name="SessionMaster" Relationship="GynacModel.FK__TalkMaste__Sessi__403A8C7D" FromRole="TalkMaster" ToRole="SessionMaster" />
           <NavigationProperty Name="UserTalks" Relationship="GynacModel.FK__UserTask__TalkId__4CA06362" FromRole="TalkMaster" ToRole="UserTalk" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="User_Id" />
-          </Key>
-          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="First_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Middle_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Email_Verified" Type="Boolean" Nullable="false" />
-          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Professional_Specialty" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Educational_Qualification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Street_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="City_Town" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Institution_Work_Place" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Where_Hear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Guid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Transaction_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Transaction_Status" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Order_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsLogin" Type="Boolean" />
-          <Property Name="IpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UserAgent" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsParticipate" Type="Boolean" />
-          <NavigationProperty Name="Notifications" Relationship="GynacModel.FK__Notificat__UserI__5FB337D6" FromRole="User" ToRole="Notification" />
-          <NavigationProperty Name="UserBookMarks" Relationship="GynacModel.FK__UserBookM__UserI__671F4F74" FromRole="User" ToRole="UserBookMark" />
-          <NavigationProperty Name="UserModuleImages" Relationship="GynacModel.FK__UserModul__UserI__52593CB8" FromRole="User" ToRole="UserModuleImage" />
-          <NavigationProperty Name="UserRatings" Relationship="GynacModel.FK__UserRatin__UserI__6CD828CA" FromRole="User" ToRole="UserRating" />
-          <NavigationProperty Name="UserTalks" Relationship="GynacModel.FK__UserTask__UserId__4D94879B" FromRole="User" ToRole="UserTalk" />
-          <NavigationProperty Name="User_Course" Relationship="GynacModel.FK_User_Course_User" FromRole="User" ToRole="User_Course" />
         </EntityType>
         <EntityType Name="User_Course">
           <Key>
@@ -1506,19 +1324,6 @@
           <NavigationProperty Name="Course" Relationship="GynacModel.FK_User_Course_Course" FromRole="User_Course" ToRole="Course" />
           <NavigationProperty Name="User" Relationship="GynacModel.FK_User_Course_User" FromRole="User_Course" ToRole="User" />
         </EntityType>
-        <EntityType Name="UserAnswer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IsValid" Type="Int32" />
-          <Property Name="QueOptionId" Type="Int32" />
-          <Property Name="QueId" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="QuestionMaster" Relationship="GynacModel.FK__UserAnswe__QueId__49C3F6B7" FromRole="UserAnswer" ToRole="QuestionMaster" />
-          <NavigationProperty Name="QuetionOptionMaster" Relationship="GynacModel.FK__UserAnswe__QueOp__48CFD27E" FromRole="UserAnswer" ToRole="QuetionOptionMaster" />
-        </EntityType>
         <EntityType Name="UserBookMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -1531,26 +1336,6 @@
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="TalkId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="GynacModel.FK__UserBookM__UserI__671F4F74" FromRole="UserBookMark" ToRole="User" />
-        </EntityType>
-        <EntityType Name="UserModuleImage">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsStatus" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ModulId" Type="Int32" />
-          <Property Name="ModuleImageId" Type="Int32" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="Faculty_Id" Type="Int32" />
-          <Property Name="IsModuleClear" Type="Int32" />
-          <NavigationProperty Name="Faculty" Relationship="GynacModel.FK__UserModul__Facul__681373AD" FromRole="UserModuleImage" ToRole="Faculty" />
-          <NavigationProperty Name="ModuleImage" Relationship="GynacModel.FK__UserModul__Modul__5165187F" FromRole="UserModuleImage" ToRole="ModuleImage" />
-          <NavigationProperty Name="ModuleMaster" Relationship="GynacModel.FK__UserModul__Modul__5070F446" FromRole="UserModuleImage" ToRole="ModuleMaster" />
-          <NavigationProperty Name="User" Relationship="GynacModel.FK__UserModul__UserI__52593CB8" FromRole="UserModuleImage" ToRole="User" />
         </EntityType>
         <EntityType Name="UserRating">
           <Key>
@@ -1684,18 +1469,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserModul__Facul__681373AD">
-          <End Type="GynacModel.Faculty" Role="Faculty" Multiplicity="0..1" />
-          <End Type="GynacModel.UserModuleImage" Role="UserModuleImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Faculty">
-              <PropertyRef Name="Faculty_Id" />
-            </Principal>
-            <Dependent Role="UserModuleImage">
-              <PropertyRef Name="Faculty_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__ModuleIma__Modul__3B75D760">
           <End Type="GynacModel.ModuleMaster" Role="ModuleMaster" Multiplicity="0..1" />
           <End Type="GynacModel.ModuleImage" Role="ModuleImage" Multiplicity="*" />
@@ -1705,18 +1478,6 @@
             </Principal>
             <Dependent Role="ModuleImage">
               <PropertyRef Name="ModulId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserModul__Modul__5165187F">
-          <End Type="GynacModel.ModuleImage" Role="ModuleImage" Multiplicity="0..1" />
-          <End Type="GynacModel.UserModuleImage" Role="UserModuleImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ModuleImage">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserModuleImage">
-              <PropertyRef Name="ModuleImageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1741,78 +1502,6 @@
             </Principal>
             <Dependent Role="TalkMaster">
               <PropertyRef Name="ModulId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserModul__Modul__5070F446">
-          <End Type="GynacModel.ModuleMaster" Role="ModuleMaster" Multiplicity="0..1" />
-          <End Type="GynacModel.UserModuleImage" Role="UserModuleImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ModuleMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserModuleImage">
-              <PropertyRef Name="ModulId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Notificat__UserI__5FB337D6">
-          <End Type="GynacModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="GynacModel.Notification" Role="Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_Id" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__QuestionM__TalkI__4316F928">
-          <End Type="GynacModel.TalkMaster" Role="TalkMaster" Multiplicity="0..1" />
-          <End Type="GynacModel.QuestionMaster" Role="QuestionMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TalkMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="QuestionMaster">
-              <PropertyRef Name="TalkId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__QuetionOp__QueId__45F365D3">
-          <End Type="GynacModel.QuestionMaster" Role="QuestionMaster" Multiplicity="0..1" />
-          <End Type="GynacModel.QuetionOptionMaster" Role="QuetionOptionMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuestionMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="QuetionOptionMaster">
-              <PropertyRef Name="QueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserAnswe__QueId__49C3F6B7">
-          <End Type="GynacModel.QuestionMaster" Role="QuestionMaster" Multiplicity="0..1" />
-          <End Type="GynacModel.UserAnswer" Role="UserAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuestionMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserAnswer">
-              <PropertyRef Name="QueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserAnswe__QueOp__48CFD27E">
-          <End Type="GynacModel.QuetionOptionMaster" Role="QuetionOptionMaster" Multiplicity="0..1" />
-          <End Type="GynacModel.UserAnswer" Role="UserAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuetionOptionMaster">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserAnswer">
-              <PropertyRef Name="QueOptionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1849,66 +1538,6 @@
             </Principal>
             <Dependent Role="UserTalk">
               <PropertyRef Name="TalkId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserBookM__UserI__671F4F74">
-          <End Type="GynacModel.User" Role="User" Multiplicity="1" />
-          <End Type="GynacModel.UserBookMark" Role="UserBookMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_Id" />
-            </Principal>
-            <Dependent Role="UserBookMark">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserModul__UserI__52593CB8">
-          <End Type="GynacModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="GynacModel.UserModuleImage" Role="UserModuleImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_Id" />
-            </Principal>
-            <Dependent Role="UserModuleImage">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserRatin__UserI__6CD828CA">
-          <End Type="GynacModel.User" Role="User" Multiplicity="1" />
-          <End Type="GynacModel.UserRating" Role="UserRating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_Id" />
-            </Principal>
-            <Dependent Role="UserRating">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserTask__UserId__4D94879B">
-          <End Type="GynacModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="GynacModel.UserTalk" Role="UserTalk" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_Id" />
-            </Principal>
-            <Dependent Role="UserTalk">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Course_User">
-          <End Type="GynacModel.User" Role="User" Multiplicity="1" />
-          <End Type="GynacModel.User_Course" Role="User_Course" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_Id" />
-            </Principal>
-            <Dependent Role="User_Course">
-              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2022,6 +1651,171 @@
           <Property Type="String" Name="Institution_Work_Place" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Where_Hear" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="First_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Middle_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email_Verified" Type="Boolean" Nullable="false" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Professional_Specialty" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Educational_Qualification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Street_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City_Town" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Institution_Work_Place" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Where_Hear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Guid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Transaction_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Transaction_Status" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Order_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsLogin" Type="Boolean" />
+          <Property Name="IpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserAgent" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsParticipate" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Notifications" Relationship="GynacModel.FK__Notificat__UserI__5FB337D6" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="UserBookMarks" Relationship="GynacModel.FK__UserBookM__UserI__671F4F74" FromRole="User" ToRole="UserBookMark" />
+          <NavigationProperty Name="UserModuleImages" Relationship="GynacModel.FK__UserModul__UserI__52593CB8" FromRole="User" ToRole="UserModuleImage" />
+          <NavigationProperty Name="UserRatings" Relationship="GynacModel.FK__UserRatin__UserI__6CD828CA" FromRole="User" ToRole="UserRating" />
+          <NavigationProperty Name="UserTalks" Relationship="GynacModel.FK__UserTask__UserId__4D94879B" FromRole="User" ToRole="UserTalk" />
+          <NavigationProperty Name="User_Course" Relationship="GynacModel.FK_User_Course_User" FromRole="User" ToRole="User_Course" />
+        </EntityType>
+        <EntityType Name="UserModuleImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsStatus" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModulId" Type="Int32" />
+          <Property Name="ModuleImageId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Faculty_Id" Type="Int32" />
+          <NavigationProperty Name="Faculty" Relationship="GynacModel.FK__UserModul__Facul__681373AD" FromRole="UserModuleImage" ToRole="Faculty" />
+          <NavigationProperty Name="ModuleImage" Relationship="GynacModel.FK__UserModul__Modul__5165187F" FromRole="UserModuleImage" ToRole="ModuleImage" />
+          <NavigationProperty Name="ModuleMaster" Relationship="GynacModel.FK__UserModul__Modul__5070F446" FromRole="UserModuleImage" ToRole="ModuleMaster" />
+          <NavigationProperty Name="User" Relationship="GynacModel.FK__UserModul__UserI__52593CB8" FromRole="UserModuleImage" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__UserModul__Facul__681373AD">
+          <End Type="GynacModel.Faculty" Role="Faculty" Multiplicity="0..1" />
+          <End Type="GynacModel.UserModuleImage" Role="UserModuleImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Faculty_Id" />
+            </Principal>
+            <Dependent Role="UserModuleImage">
+              <PropertyRef Name="Faculty_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserModul__Modul__5165187F">
+          <End Type="GynacModel.ModuleImage" Role="ModuleImage" Multiplicity="0..1" />
+          <End Type="GynacModel.UserModuleImage" Role="UserModuleImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserModuleImage">
+              <PropertyRef Name="ModuleImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserModul__Modul__5070F446">
+          <End Type="GynacModel.ModuleMaster" Role="ModuleMaster" Multiplicity="0..1" />
+          <End Type="GynacModel.UserModuleImage" Role="UserModuleImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserModuleImage">
+              <PropertyRef Name="ModulId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__UserI__5FB337D6">
+          <End Type="GynacModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="GynacModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserBookM__UserI__671F4F74">
+          <End Type="GynacModel.User" Role="User" Multiplicity="1" />
+          <End Type="GynacModel.UserBookMark" Role="UserBookMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="UserBookMark">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserModul__UserI__52593CB8">
+          <End Type="GynacModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="GynacModel.UserModuleImage" Role="UserModuleImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="UserModuleImage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRatin__UserI__6CD828CA">
+          <End Type="GynacModel.User" Role="User" Multiplicity="1" />
+          <End Type="GynacModel.UserRating" Role="UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserTask__UserId__4D94879B">
+          <End Type="GynacModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="GynacModel.UserTalk" Role="UserTalk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="UserTalk">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Course_User">
+          <End Type="GynacModel.User" Role="User" Multiplicity="1" />
+          <End Type="GynacModel.User_Course" Role="User_Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="User_Course">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2143,30 +1937,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="QuestionMasters">
-            <EntityTypeMapping TypeName="GynacModel.QuestionMaster">
-              <MappingFragment StoreEntitySet="QuestionMaster">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="TalkId" ColumnName="TalkId" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="Ans" ColumnName="Ans" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QuetionOptionMasters">
-            <EntityTypeMapping TypeName="GynacModel.QuetionOptionMaster">
-              <MappingFragment StoreEntitySet="QuetionOptionMaster">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="QueId" ColumnName="QueId" />
-                <ScalarProperty Name="QueOption" ColumnName="QueOption" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RatingMasters">
             <EntityTypeMapping TypeName="GynacModel.RatingMaster">
               <MappingFragment StoreEntitySet="RatingMaster">
@@ -2205,37 +1975,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="GynacModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="IsParticipate" ColumnName="IsParticipate" />
-                <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
-                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
-                <ScalarProperty Name="IsLogin" ColumnName="IsLogin" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
-                <ScalarProperty Name="Transaction_Status" ColumnName="Transaction_Status" />
-                <ScalarProperty Name="Transaction_Id" ColumnName="Transaction_Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="Where_Hear" ColumnName="Where_Hear" />
-                <ScalarProperty Name="Institution_Work_Place" ColumnName="Institution_Work_Place" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="City_Town" ColumnName="City_Town" />
-                <ScalarProperty Name="Street_Address" ColumnName="Street_Address" />
-                <ScalarProperty Name="Educational_Qualification" ColumnName="Educational_Qualification" />
-                <ScalarProperty Name="Professional_Specialty" ColumnName="Professional_Specialty" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email_Verified" ColumnName="Email_Verified" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
-                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
-                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="User_Course">
             <EntityTypeMapping TypeName="GynacModel.User_Course">
               <MappingFragment StoreEntitySet="User_Course">
@@ -2254,18 +1993,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserAnswers">
-            <EntityTypeMapping TypeName="GynacModel.UserAnswer">
-              <MappingFragment StoreEntitySet="UserAnswer">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="QueId" ColumnName="QueId" />
-                <ScalarProperty Name="QueOptionId" ColumnName="QueOptionId" />
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserBookMarks">
             <EntityTypeMapping TypeName="GynacModel.UserBookMark">
               <MappingFragment StoreEntitySet="UserBookMark">
@@ -2275,23 +2002,6 @@
                 <ScalarProperty Name="BookMarkTime" ColumnName="BookMarkTime" />
                 <ScalarProperty Name="BookMarkName" ColumnName="BookMarkName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserModuleImages">
-            <EntityTypeMapping TypeName="GynacModel.UserModuleImage">
-              <MappingFragment StoreEntitySet="UserModuleImage">
-                <ScalarProperty Name="IsModuleClear" ColumnName="IsModuleClear" />
-                <ScalarProperty Name="Faculty_Id" ColumnName="Faculty_Id" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ModuleImageId" ColumnName="ModuleImageId" />
-                <ScalarProperty Name="ModulId" ColumnName="ModulId" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="IsStatus" ColumnName="IsStatus" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2503,6 +2213,55 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="GynacModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsParticipate" ColumnName="IsParticipate" />
+                <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="IsLogin" ColumnName="IsLogin" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
+                <ScalarProperty Name="Transaction_Status" ColumnName="Transaction_Status" />
+                <ScalarProperty Name="Transaction_Id" ColumnName="Transaction_Id" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Where_Hear" ColumnName="Where_Hear" />
+                <ScalarProperty Name="Institution_Work_Place" ColumnName="Institution_Work_Place" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City_Town" ColumnName="City_Town" />
+                <ScalarProperty Name="Street_Address" ColumnName="Street_Address" />
+                <ScalarProperty Name="Educational_Qualification" ColumnName="Educational_Qualification" />
+                <ScalarProperty Name="Professional_Specialty" ColumnName="Professional_Specialty" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email_Verified" ColumnName="Email_Verified" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserModuleImages">
+            <EntityTypeMapping TypeName="GynacModel.UserModuleImage">
+              <MappingFragment StoreEntitySet="UserModuleImage">
+                <ScalarProperty Name="Faculty_Id" ColumnName="Faculty_Id" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ModuleImageId" ColumnName="ModuleImageId" />
+                <ScalarProperty Name="ModulId" ColumnName="ModulId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="IsStatus" ColumnName="IsStatus" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

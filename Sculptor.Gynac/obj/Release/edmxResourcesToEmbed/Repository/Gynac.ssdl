@@ -116,28 +116,6 @@
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
   </EntityType>
-  <EntityType Name="QuestionMaster">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Question" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Ans" Type="nvarchar(max)" />
-    <Property Name="ImagePath" Type="nvarchar(max)" />
-    <Property Name="TalkId" Type="int" />
-    <Property Name="CreateDate" Type="datetime" />
-    <Property Name="UpdateDate" Type="datetime" />
-  </EntityType>
-  <EntityType Name="QuetionOptionMaster">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="QueOption" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="QueId" Type="int" />
-    <Property Name="CreateDate" Type="datetime" />
-    <Property Name="UpdateDate" Type="datetime" />
-  </EntityType>
   <EntityType Name="RatingMaster">
     <Key>
       <PropertyRef Name="Id" />
@@ -202,6 +180,8 @@
     <Property Name="IpAddress" Type="nvarchar" MaxLength="200" />
     <Property Name="UserAgent" Type="nvarchar" MaxLength="200" />
     <Property Name="IsParticipate" Type="bit" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="User_Course">
     <Key>
@@ -219,17 +199,6 @@
     <Property Name="Transaction_Id" Type="varchar" MaxLength="100" />
     <Property Name="Transaction_Status" Type="varchar" MaxLength="150" />
     <Property Name="Order_Status" Type="varchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="UserAnswer">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IsValid" Type="int" />
-    <Property Name="QueOptionId" Type="int" />
-    <Property Name="QueId" Type="int" />
-    <Property Name="CreateDate" Type="datetime" />
-    <Property Name="UpdateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="UserBookMark">
     <Key>
@@ -257,7 +226,6 @@
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="Faculty_Id" Type="int" />
-    <Property Name="IsModuleClear" Type="int" />
   </EntityType>
   <EntityType Name="UserRating">
     <Key>
@@ -359,30 +327,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__QuestionM__TalkI__4316F928">
-    <End Role="TalkMaster" Type="Self.TalkMaster" Multiplicity="0..1" />
-    <End Role="QuestionMaster" Type="Self.QuestionMaster" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TalkMaster">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="QuestionMaster">
-        <PropertyRef Name="TalkId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__QuetionOp__QueId__45F365D3">
-    <End Role="QuestionMaster" Type="Self.QuestionMaster" Multiplicity="0..1" />
-    <End Role="QuetionOptionMaster" Type="Self.QuetionOptionMaster" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="QuestionMaster">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="QuetionOptionMaster">
-        <PropertyRef Name="QueId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__TalkMaste__Facul__3E52440B">
     <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
     <End Role="TalkMaster" Type="Self.TalkMaster" Multiplicity="*" />
@@ -416,30 +360,6 @@
       </Principal>
       <Dependent Role="TalkMaster">
         <PropertyRef Name="SessionId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__UserAnswe__QueId__49C3F6B7">
-    <End Role="QuestionMaster" Type="Self.QuestionMaster" Multiplicity="0..1" />
-    <End Role="UserAnswer" Type="Self.UserAnswer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="QuestionMaster">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserAnswer">
-        <PropertyRef Name="QueId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__UserAnswe__QueOp__48CFD27E">
-    <End Role="QuetionOptionMaster" Type="Self.QuetionOptionMaster" Multiplicity="0..1" />
-    <End Role="UserAnswer" Type="Self.UserAnswer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="QuetionOptionMaster">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserAnswer">
-        <PropertyRef Name="QueOptionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -815,14 +735,11 @@
     <EntitySet Name="ModuleImage" EntityType="Self.ModuleImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModuleMaster" EntityType="Self.ModuleMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="QuestionMaster" EntityType="Self.QuestionMaster" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="QuetionOptionMaster" EntityType="Self.QuetionOptionMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RatingMaster" EntityType="Self.RatingMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SessionMaster" EntityType="Self.SessionMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TalkMaster" EntityType="Self.TalkMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Course" EntityType="Self.User_Course" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="UserAnswer" EntityType="Self.UserAnswer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserBookMark" EntityType="Self.UserBookMark" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserModuleImage" EntityType="Self.UserModuleImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
@@ -851,14 +768,6 @@
       <End Role="User" EntitySet="User" />
       <End Role="Notification" EntitySet="Notification" />
     </AssociationSet>
-    <AssociationSet Name="FK__QuestionM__TalkI__4316F928" Association="Self.FK__QuestionM__TalkI__4316F928">
-      <End Role="TalkMaster" EntitySet="TalkMaster" />
-      <End Role="QuestionMaster" EntitySet="QuestionMaster" />
-    </AssociationSet>
-    <AssociationSet Name="FK__QuetionOp__QueId__45F365D3" Association="Self.FK__QuetionOp__QueId__45F365D3">
-      <End Role="QuestionMaster" EntitySet="QuestionMaster" />
-      <End Role="QuetionOptionMaster" EntitySet="QuetionOptionMaster" />
-    </AssociationSet>
     <AssociationSet Name="FK__TalkMaste__Facul__3E52440B" Association="Self.FK__TalkMaste__Facul__3E52440B">
       <End Role="Faculty" EntitySet="Faculty" />
       <End Role="TalkMaster" EntitySet="TalkMaster" />
@@ -870,14 +779,6 @@
     <AssociationSet Name="FK__TalkMaste__Sessi__403A8C7D" Association="Self.FK__TalkMaste__Sessi__403A8C7D">
       <End Role="SessionMaster" EntitySet="SessionMaster" />
       <End Role="TalkMaster" EntitySet="TalkMaster" />
-    </AssociationSet>
-    <AssociationSet Name="FK__UserAnswe__QueId__49C3F6B7" Association="Self.FK__UserAnswe__QueId__49C3F6B7">
-      <End Role="QuestionMaster" EntitySet="QuestionMaster" />
-      <End Role="UserAnswer" EntitySet="UserAnswer" />
-    </AssociationSet>
-    <AssociationSet Name="FK__UserAnswe__QueOp__48CFD27E" Association="Self.FK__UserAnswe__QueOp__48CFD27E">
-      <End Role="QuetionOptionMaster" EntitySet="QuetionOptionMaster" />
-      <End Role="UserAnswer" EntitySet="UserAnswer" />
     </AssociationSet>
     <AssociationSet Name="FK__UserBookM__UserI__671F4F74" Association="Self.FK__UserBookM__UserI__671F4F74">
       <End Role="User" EntitySet="User" />

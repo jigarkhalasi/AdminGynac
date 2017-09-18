@@ -49,6 +49,8 @@ namespace Sculptor.Gynac.Repository
         public string IpAddress { get; set; }
         public string UserAgent { get; set; }
         public Nullable<bool> IsParticipate { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<UserBookMark> UserBookMarks { get; set; }

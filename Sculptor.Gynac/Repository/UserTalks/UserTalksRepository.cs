@@ -34,6 +34,8 @@ namespace Sculptor.Gynac.Repository.UserTalks
                         dataModel.IsVideoStatus = 0;
                         dataModel.IsExamlear = 0;
                         dataModel.IsModuleClear = 0;
+                        dataModel.CreateDate = DateTime.UtcNow;
+                        dataModel.UpdateDate = DateTime.UtcNow;
                         dataModel.ModuleId = _contex.TalkMasters.Where(t => t.Id == item).FirstOrDefault().ModulId;
                         _contex.UserTalks.Add(dataModel);
                     }

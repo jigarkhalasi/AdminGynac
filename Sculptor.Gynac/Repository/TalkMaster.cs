@@ -16,7 +16,6 @@ namespace Sculptor.Gynac.Repository
     {
         public TalkMaster()
         {
-            this.QuestionMasters = new HashSet<QuestionMaster>();
             this.UserTalks = new HashSet<UserTalk>();
         }
     
@@ -35,7 +34,6 @@ namespace Sculptor.Gynac.Repository
     
         public virtual Faculty Faculty { get; set; }
         public virtual ModuleMaster ModuleMaster { get; set; }
-        public virtual ICollection<QuestionMaster> QuestionMasters { get; set; }
         public virtual SessionMaster SessionMaster { get; set; }
         public virtual ICollection<UserTalk> UserTalks { get; set; }
     }

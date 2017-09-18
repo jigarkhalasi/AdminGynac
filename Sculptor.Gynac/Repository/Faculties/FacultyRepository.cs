@@ -80,10 +80,7 @@ namespace Sculptor.Gynac.Repository.Faculties
 
             if (sampleModuleImageCount == userModuleImageCount)
             {
-                for (int i = 0; i < userImageData.Count(); i++)
-                {
-                    userImageData[i].IsModuleClear = 1;
-                }
+               
 
                 for (int i = 0; i < userTalksList.Count(); i++)
                 {
@@ -91,10 +88,7 @@ namespace Sculptor.Gynac.Repository.Faculties
                 }
             }
             else {
-                for (int i = 0; i < userImageData.Count(); i++)
-                {
-                    userImageData[i].IsModuleClear = 0;
-                }
+                
 
                 for (int i = 0; i < userTalksList.Count(); i++)
                 {

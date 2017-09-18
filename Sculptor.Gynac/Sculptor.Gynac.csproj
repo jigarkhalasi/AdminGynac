@@ -268,12 +268,6 @@
     </Compile>
     <Compile Include="Repository\Notifications\INotificationRepository.cs" />
     <Compile Include="Repository\Notifications\NotificationRepository.cs" />
-    <Compile Include="Repository\QuestionMaster.cs">
-      <DependentUpon>Gynac.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\QuetionOptionMaster.cs">
-      <DependentUpon>Gynac.tt</DependentUpon>
-    </Compile>
     <Compile Include="Repository\RatingMaster.cs">
       <DependentUpon>Gynac.tt</DependentUpon>
     </Compile>
@@ -284,9 +278,6 @@
       <DependentUpon>Gynac.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\User.cs">
-      <DependentUpon>Gynac.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\UserAnswer.cs">
       <DependentUpon>Gynac.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\UserBookMark.cs">
