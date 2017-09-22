@@ -5,7 +5,9 @@ using Sculptor.Gynac.Repository.Faculties;
 using Sculptor.Gynac.Repository.Users;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -128,6 +130,56 @@ namespace Sculptor.Gynac.Controllers
         public async Task<ActionResult> AddReveiewImage(ReviewCommentModel model)
         {
             var data = await _facultyRepo.ReviewImage(model);
+
+            var userEmail = await _userRepo.GetUserById(model.UserId);
+            var facultiesData = await _facultyRepo.GetAllFaculty();
+            var facultyEmail = facultiesData.Where(f => f.Faculty_Id == model.FacultyId).First().Email;
+            var moduleData = await _commonRepo.GetModuleById(model.ModuleId);
+            var moduleName = moduleData.Name;
+
+            var userModuleData = await _commonRepo.GetUserModuelImageById(model.UserModuleImageId);
+            var moduleImageName = userModuleData.ImagePath;
+            var moduleComment = userModuleData.Comment;
+
+            string toAddress = string.Empty;//userEmail.Email.ToString();
+
+            string body = string.Empty;
+            if (model.IsStatus == 1) { // 1 for accept
+                
+                string path = System.Web.HttpContext.Current.Server.MapPath("~/Views/EmailTemplates/ImageAccepted.html");
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    body = reader.ReadToEnd();
+                }
+
+                body = body.Replace("{modulename}", moduleName);
+               // body = body.Replace("{moduleimage}", moduleImageName);
+                body = body.Replace("{moduleComment}", moduleComment);
+
+               // toAddress = userEmail.Email.ToString() + "," + facultyEmail.ToString();
+                toAddress = userEmail.Email.ToString();
+                _commonRepo.SendMail(toAddress, Sculptor.Gynac.Repository.Common.CommonRepository.EmailType.AcceptImage, "", body);
+            }
+            else if (model.IsStatus == 2)// 2 for rejected
+            {
+                string path = System.Web.HttpContext.Current.Server.MapPath("~/Views/EmailTemplates/ImageRejected.html");
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    body = reader.ReadToEnd();
+                }
+
+                body = body.Replace("{modulename}", moduleName);
+               // body = body.Replace("{moduleimage}", moduleImageName);
+                body = body.Replace("{moduleComment}", moduleComment);
+
+                //toAddress = userEmail.Email.ToString() + "," + facultyEmail.ToString();
+                toAddress = userEmail.Email.ToString();
+
+                _commonRepo.SendMail(toAddress, Sculptor.Gynac.Repository.Common.CommonRepository.EmailType.RejectImage, "", body);
+            }
+
+            
+
             return Json(new { success = true });
         }
 

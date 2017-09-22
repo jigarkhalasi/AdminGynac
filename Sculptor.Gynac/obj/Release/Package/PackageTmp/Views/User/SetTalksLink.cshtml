@@ -62,7 +62,7 @@
                                                                                 <h5>@talks.EndDate.ToString("dd/MM/yyyy")</h5>
                                                                                 }
                                                                         </td>
-                                                                        <td class="table-text"><input type="checkbox" data-sid="@session.Id" name="talks" data-mid="@module.Id" data-tid="@talks.Id" checked="@talks.IsTalksChecked" /></td>
+                                                                        <td class="table-text"><input type="checkbox" data-sid="@session.Id" name="talks" data-mid="@module.Id" data-tid="@talks.Id" data-tname="@talks.Name" checked="@talks.IsTalksChecked" /></td>
                                                                     </tr>
                                                                     }
                                                             </tbody>
@@ -190,6 +190,7 @@
 
         $("#setUserTalks").click(function (e) {
             var tIdList = [];
+            var tNameList = [];
             if($("#endDate").val() == ""){
                 $("#endDate").val();
             }
@@ -201,6 +202,7 @@
             $.each($("[name=talks]"), function (index, value) {
                 if ($(this).is(':checked')) {
                     tIdList.push($(this).attr('data-tid'));
+                    tNameList.push($(this).attr('data-tname'));                    
                 }
             });
 

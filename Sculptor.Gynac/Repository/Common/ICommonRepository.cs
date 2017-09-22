@@ -18,5 +18,8 @@ namespace Sculptor.Gynac.Repository.Common
         Task<ModuleMaster> GetModuleById(int moduleId);
         Task<IQueryable<ModuleImage>>  GetModuleImageByModuleId(int moduleId);
         //Task<IQueryable<UserModuleImage>> GetUserModuleImageByModuleId(int moduleId, int userId, int facultyId);
+
+        Task<UserModuleImage> GetUserModuelImageById(int userModuelImageId);
+        void SendMail(string toAddress, Sculptor.Gynac.Repository.Common.CommonRepository.EmailType emailType, string guid, string bodyData = "", string subjectData = "");
     }
 }

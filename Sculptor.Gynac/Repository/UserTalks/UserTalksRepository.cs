@@ -12,37 +12,69 @@ namespace Sculptor.Gynac.Repository.UserTalks
 {
     public class UserTalksRepository : BaseRepository, IUserTalksRepository
     {
-        public async Task<IQueryable<UserTalk>> SetUserTalks(Int32 userId, List<int> talksId, string endDate)
-        {
+        public async Task<UserTalkResult> SetUserTalks(Int32 userId, List<int> talksId, string endDate)
+        { 
             return await Task.Run(() =>
             {
-
-                var userTalksdata = _contex.UserTalks.Where(t => t.UserId == userId);
-                _contex.UserTalks.RemoveRange(userTalksdata);
-                _contex.SaveChanges();
+                var userTalksModel= new UserTalkResult();
+                var addTalkList = new List<TalkAccessList>();
+                var removeTalkList = new List<TalkAccessList>();
 
                 if (talksId != null)
                 {
+                    var userTalksdata = _contex.UserTalks.Where(t => t.UserId == userId);
+                    
+
+                    foreach (var item in userTalksdata)
+                    {
+                        if (!talksId.Contains(item.TalkId.Value))
+                        {
+                            var removeTalk = new TalkAccessList();
+                            removeTalk.TalkId = item.TalkId.Value;
+                            removeTalk.TalkName = item.TalkMaster.Name;
+
+                            removeTalkList.Add(removeTalk);
+
+                            _contex.UserTalks.Remove(item);
+                        }
+                    }
 
                     foreach (var item in talksId)
                     {
-                        var dataModel = new UserTalk();
-                        dataModel.Enddate = DateTime.ParseExact(endDate, "MM-dd-yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                        dataModel.TalkId = item;
-                        dataModel.UserId = userId;
-                        dataModel.IsActive = 0;
-                        dataModel.IsVideoStatus = 0;
-                        dataModel.IsExamlear = 0;
-                        dataModel.IsModuleClear = 0;
-                        dataModel.CreateDate = DateTime.UtcNow;
-                        dataModel.UpdateDate = DateTime.UtcNow;
-                        dataModel.ModuleId = _contex.TalkMasters.Where(t => t.Id == item).FirstOrDefault().ModulId;
-                        _contex.UserTalks.Add(dataModel);
+                        if (!userTalksdata.Where(t => t.TalkId.Value == item).Any())
+                        {
+                            var talk = _contex.TalkMasters.Where(t => t.Id == item).FirstOrDefault();
+
+                            var dataModel = new UserTalk();
+                            dataModel.Enddate = DateTime.ParseExact(endDate, "MM-dd-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                            dataModel.TalkId = item;
+                            dataModel.UserId = userId;
+                            dataModel.IsActive = 0;
+                            dataModel.IsVideoStatus = 0;
+                            dataModel.IsExamlear = 0;
+                            dataModel.IsModuleClear = 0;
+                            dataModel.CreateDate = DateTime.UtcNow;
+                            dataModel.UpdateDate = DateTime.UtcNow;
+                            dataModel.ModuleId = talk.ModulId;
+
+                            //Add new talks name
+                            var addTalk = new TalkAccessList();
+                            addTalk.TalkId = dataModel.TalkId.Value;
+                            addTalk.TalkName = talk.Name;
+
+                            addTalkList.Add(addTalk);
+
+                            _contex.UserTalks.Add(dataModel);
+                        }
                     }
                     _contex.SaveChanges();
                 }
 
-                return _contex.UserTalks.Where(t => t.UserId == userId);
+                userTalksModel.UserTalkList = _contex.UserTalks.Where(t => t.UserId == userId).ToList();
+                userTalksModel.addTalkList = addTalkList;
+                userTalksModel.removeTalkList = removeTalkList;
+
+                return userTalksModel;
             });
 
         }

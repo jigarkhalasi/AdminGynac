@@ -9,6 +9,9 @@ using Sculptor.Gynac.Repository;
 using Sculptor.Gynac.Repository.Common;
 using Sculptor.Gynac.Models;
 using Sculptor.Gynac.Repository.UserTalks;
+using System.IO;
+using System.Text;
+
 
 
 namespace Sculptor.Gynac.Controllers
@@ -161,6 +164,60 @@ namespace Sculptor.Gynac.Controllers
         public async Task<ActionResult> SetUserTalksLink(Int32 userId, List<int> talksId, string endDate)
         {
             var data = await _userTalkRepo.SetUserTalks(userId, talksId, endDate);
+            var userEmail= await _userRepo.GetUserById(userId);
+
+            string toAddress = userEmail.Email.ToString();
+
+            string body = string.Empty;
+
+            if (data.addTalkList.Count() > 0) {
+
+                string path = System.Web.HttpContext.Current.Server.MapPath("~/Views/EmailTemplates/AccessRight.html");
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    body = reader.ReadToEnd();
+                }
+
+                var names = new StringBuilder();
+                var talksName = data.addTalkList;
+                for (var i = 0; i < talksName.Count(); i++)
+                {
+                    names.Append(i + 1);
+                    names.Append(' ');
+                    names.Append(talksName.ElementAt(i).TalkName);
+                    names.Append("<br/>");
+                }
+
+                body = body.Replace("{talklist}", names.ToString());
+                body = body.Replace("{supoortEmail}", System.Configuration.ConfigurationManager.AppSettings["supportEmail"]);
+                
+                _commonRepo.SendMail(toAddress, Sculptor.Gynac.Repository.Common.CommonRepository.EmailType.TalkAccess, "", body);
+            }
+
+            if (data.removeTalkList.Count() > 0)
+            {
+                string path = System.Web.HttpContext.Current.Server.MapPath("~/Views/EmailTemplates/RevokedRight.html");
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    body = reader.ReadToEnd();
+                }
+
+                var names = new StringBuilder();
+                var talksName = data.removeTalkList;
+                for (var i = 0; i < talksName.Count() ; i++)
+                {
+                    names.Append(i + 1);
+                    names.Append(' ');
+                    names.Append(talksName.ElementAt(i).TalkName);
+                    names.Append("<br/>");
+                }
+
+                body = body.Replace("{talklist}", names.ToString());
+                body = body.Replace("{supoortEmail}", System.Configuration.ConfigurationManager.AppSettings["supportEmail"]);
+                
+                _commonRepo.SendMail(toAddress, Sculptor.Gynac.Repository.Common.CommonRepository.EmailType.TalkRevoked, "", body);
+            }
+
             return Json(new { success = true });
         }
 

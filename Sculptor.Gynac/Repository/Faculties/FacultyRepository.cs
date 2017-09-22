@@ -84,7 +84,7 @@ namespace Sculptor.Gynac.Repository.Faculties
 
                 for (int i = 0; i < userTalksList.Count(); i++)
                 {
-                    userTalksList[i].IsModuleClear = 2;
+                    userTalksList[i].IsModuleClear = 2; //this for module image submittion clear
                 }
             }
             else {
@@ -92,7 +92,7 @@ namespace Sculptor.Gynac.Repository.Faculties
 
                 for (int i = 0; i < userTalksList.Count(); i++)
                 {
-                    userTalksList[i].IsModuleClear = 1;
+                    userTalksList[i].IsModuleClear = 1; //this for module image submittion pending
                 }
             }           
 
