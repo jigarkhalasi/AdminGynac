@@ -182,6 +182,7 @@
     <Property Name="IsParticipate" Type="bit" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="TutorialSummaryTitle" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="User_Course">
     <Key>

@@ -222,9 +222,11 @@ namespace Sculptor.Gynac.Controllers
         }
 
         [HttpGet]
-        public ActionResult TutorialSummary(Int32 userId)
+        public async Task<ActionResult> TutorialSummary(Int32 userId)
         {
             var data =  _userTalkRepo.TutorialSummary(userId);
+            var userdata = await _userRepo.GetUserById(userId);
+            ViewBag.TutorialSummaryTitle = userdata.TutorialSummaryTitle;
             return View(data);
         }
     }

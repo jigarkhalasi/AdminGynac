@@ -36,18 +36,18 @@
         <AssociationConnector Association="GynacModel.FK__TalkMaste__Sessi__403A8C7D" />
         <AssociationConnector Association="GynacModel.FK__UserTask__TalkId__4CA06362" />
         <AssociationConnector Association="GynacModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="GynacModel.User" Width="1.5" PointX="0.75" PointY="13.875" />
         <EntityTypeShape EntityType="GynacModel.UserModuleImage" Width="1.5" PointX="7.75" PointY="16.5" />
         <AssociationConnector Association="GynacModel.FK__UserModul__Facul__681373AD" />
         <AssociationConnector Association="GynacModel.FK__UserModul__Modul__5165187F" />
         <AssociationConnector Association="GynacModel.FK__UserModul__Modul__5070F446" />
+        <EntityTypeShape EntityType="GynacModel.User" Width="1.5" PointX="0.75" PointY="13.75" />
         <AssociationConnector Association="GynacModel.FK__Notificat__UserI__5FB337D6" />
         <AssociationConnector Association="GynacModel.FK__UserBookM__UserI__671F4F74" />
         <AssociationConnector Association="GynacModel.FK__UserModul__UserI__52593CB8" />
         <AssociationConnector Association="GynacModel.FK__UserRatin__UserI__6CD828CA" />
         <AssociationConnector Association="GynacModel.FK__UserTask__UserId__4D94879B" />
         <AssociationConnector Association="GynacModel.FK_User_Course_User" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
