@@ -111,7 +111,9 @@
 <script>
     // $(document).ready(function () {
 
-    function openBigImageModal(src){
+    function openBigImageModal(src) {
+        windowHeight = $(window).innerHeight() - 200;
+        $('.modal-body').css('min-height', windowHeight);
         $('.imagepreview').attr('src', src);    
     }
 

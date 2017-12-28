@@ -16,7 +16,7 @@ using System.Text;
 
 namespace Sculptor.Gynac.Controllers
 {
-   // [Authorize]
+   [Authorize]
     public class UserController : BaseController
     {
         private readonly IUserRepository _userRepo;

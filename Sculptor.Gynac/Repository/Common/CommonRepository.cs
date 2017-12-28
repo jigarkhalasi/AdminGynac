@@ -7,6 +7,8 @@ using Sculptor.Gynac.Models.Enum;
 using Sculptor.Gynac.Models;
 using System.Net.Mail;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Sculptor.Gynac.Repository.Common
 {
@@ -152,6 +154,107 @@ namespace Sculptor.Gynac.Repository.Common
         public async Task<UserModuleImage> GetUserModuelImageById(int userModuelImageId)
         {
             return await _contex.UserModuleImages.FindAsync(userModuelImageId);
+        }
+
+       
+
+        //Reports
+        public DataTable GetVideoReport()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string CONNECTION_STRING = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+                using (SqlConnection con = new SqlConnection(CONNECTION_STRING))
+                {
+                    dt = new DataTable();
+                    con.Open();
+                    SqlCommand command = new SqlCommand("Get_VideoReport", con);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                    dataAdapter.Fill(dt);
+                }                
+            }
+            catch
+            {
+                throw;
+            }
+
+            return dt;
+        }
+        //Bookmark Report
+        public DataTable GetBookMarkReport()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string CONNECTION_STRING = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+                using (SqlConnection con = new SqlConnection(CONNECTION_STRING))
+                {
+                    dt = new DataTable();
+                    con.Open();
+                    SqlCommand command = new SqlCommand("Get_BookmarkReport", con);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                    dataAdapter.Fill(dt);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return dt;
+        }
+
+        //Rating Report
+        public DataTable GetRatingReport()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string CONNECTION_STRING = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+                using (SqlConnection con = new SqlConnection(CONNECTION_STRING))
+                {
+                    dt = new DataTable();
+                    con.Open();
+                    SqlCommand command = new SqlCommand("Get_RatingReport", con);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                    dataAdapter.Fill(dt);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return dt;
+        }
+
+        //Image Submission Report
+        public DataTable GetImageReport()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string CONNECTION_STRING = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+                using (SqlConnection con = new SqlConnection(CONNECTION_STRING))
+                {
+                    dt = new DataTable();
+                    con.Open();
+                    SqlCommand command = new SqlCommand("Get_ImageSubmissionReport", con);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                    dataAdapter.Fill(dt);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return dt;
         }
     }
 }

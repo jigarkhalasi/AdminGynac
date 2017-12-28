@@ -1,6 +1,7 @@
 ﻿using Sculptor.Gynac.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,5 +22,10 @@ namespace Sculptor.Gynac.Repository.Common
 
         Task<UserModuleImage> GetUserModuelImageById(int userModuelImageId);
         void SendMail(string toAddress, Sculptor.Gynac.Repository.Common.CommonRepository.EmailType emailType, string guid, string bodyData = "", string subjectData = "");
+
+        DataTable GetVideoReport();
+        DataTable GetBookMarkReport();
+        DataTable GetRatingReport();
+        DataTable GetImageReport();
     }
 }

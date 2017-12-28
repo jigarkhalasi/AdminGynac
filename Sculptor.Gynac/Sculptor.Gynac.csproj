@@ -167,6 +167,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -345,6 +346,7 @@
     <Content Include="Content\images\in9.jpg" />
     <Content Include="Content\images\link.png" />
     <Content Include="Content\images\lo.png" />
+    <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\na.jpg" />
     <Content Include="Content\images\na1.jpg" />
     <Content Include="Content\images\na2.jpg" />
@@ -498,6 +500,7 @@
     <Content Include="Views\Faculty\Dashboard.cshtml" />
     <Content Include="Views\Module\Index.cshtml" />
     <Content Include="Views\User\TutorialSummary.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

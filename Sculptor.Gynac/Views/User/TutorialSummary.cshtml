@@ -42,21 +42,28 @@
                         </tr>
                     </thead>
                     <tbody>
-@foreach (var item in Model)
-                            {
-                        <tr>
-
-                            <td>@item.SessionName</td>
-                            <td>@item.TotalCompletedTalks </td>
-                            <td>@item.TotalPendingTalks </td>
-                            <td>
-                            @item.TotalCompletedModules
-                            </td>
-                            <td>
-                                @item.TotalPendingModules                            
-                            </td>
-                        </tr>
-}
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.SessionName</td>
+                                <td>@item.TotalCompletedTalks </td>
+                                <td>@item.TotalPendingTalks </td>
+                                @if (@item.TotalPendingTalks == 0)
+                                {
+                                    <td>0</td>
+                                    <td>0</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @item.TotalCompletedModules
+                                    </td>
+                                    <td>
+                                        @item.TotalPendingModules
+                                    </td>
+                                }
+                            </tr>
+                         }
                     </tbody>
                 </table>
             </div>
