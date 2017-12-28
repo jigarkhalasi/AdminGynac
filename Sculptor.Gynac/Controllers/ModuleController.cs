@@ -67,7 +67,7 @@ namespace Sculptor.Gynac.Controllers
                 if (postedFile != null && postedFile.ContentLength > 0)
                 {
 
-                    int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB  
+                    int MaxContentLength = 1024 * 1024 * 20; //Size = 20 MB  
 
                     IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".jpeg", ".gif", ".png" };
                     var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
@@ -96,6 +96,16 @@ namespace Sculptor.Gynac.Controllers
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);
-        } 
+        }
+
+        [HttpPost]
+        //GetSampleImages
+        public async Task<ActionResult> DeleteSampleImage(Int32 sampleModuleId)
+        {
+            var SampleImages = await _moduleRepo.DeleteSampleImage(sampleModuleId);            
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
+
+    
 }

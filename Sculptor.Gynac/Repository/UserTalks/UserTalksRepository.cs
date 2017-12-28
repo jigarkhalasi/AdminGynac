@@ -1,7 +1,9 @@
 ﻿using Sculptor.Gynac.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,34 +12,69 @@ namespace Sculptor.Gynac.Repository.UserTalks
 {
     public class UserTalksRepository : BaseRepository, IUserTalksRepository
     {
-        public async Task<IQueryable<UserTalk>> SetUserTalks(Int32 userId, List<int> talksId, string endDate)
-        {
+        public async Task<UserTalkResult> SetUserTalks(Int32 userId, List<int> talksId, string endDate)
+        { 
             return await Task.Run(() =>
             {
-
-                var userTalksdata = _contex.UserTalks.Where(t => t.UserId == userId);
-                _contex.UserTalks.RemoveRange(userTalksdata);
-                _contex.SaveChanges();
+                var userTalksModel= new UserTalkResult();
+                var addTalkList = new List<TalkAccessList>();
+                var removeTalkList = new List<TalkAccessList>();
 
                 if (talksId != null)
                 {
+                    var userTalksdata = _contex.UserTalks.Where(t => t.UserId == userId);
+                    
+
+                    foreach (var item in userTalksdata)
+                    {
+                        if (!talksId.Contains(item.TalkId.Value))
+                        {
+                            var removeTalk = new TalkAccessList();
+                            removeTalk.TalkId = item.TalkId.Value;
+                            removeTalk.TalkName = item.TalkMaster.Name;
+
+                            removeTalkList.Add(removeTalk);
+
+                            _contex.UserTalks.Remove(item);
+                        }
+                    }
 
                     foreach (var item in talksId)
                     {
-                        var dataModel = new UserTalk();
-                        dataModel.Enddate = DateTime.ParseExact(endDate, "MM-dd-yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                        dataModel.TalkId = item;
-                        dataModel.UserId = userId;
-                        dataModel.IsActive = 0;
-                        dataModel.IsVideoStatus = 0;
-                        dataModel.IsExamlear = 0;
-                        _contex.UserTalks.Add(dataModel);
+                        if (!userTalksdata.Where(t => t.TalkId.Value == item).Any())
+                        {
+                            var talk = _contex.TalkMasters.Where(t => t.Id == item).FirstOrDefault();
 
+                            var dataModel = new UserTalk();
+                            dataModel.Enddate = DateTime.ParseExact(endDate, "MM-dd-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                            dataModel.TalkId = item;
+                            dataModel.UserId = userId;
+                            dataModel.IsActive = 0;
+                            dataModel.IsVideoStatus = 0;
+                            dataModel.IsExamlear = 0;
+                            dataModel.IsModuleClear = 0;
+                            dataModel.CreateDate = DateTime.UtcNow;
+                            dataModel.UpdateDate = DateTime.UtcNow;
+                            dataModel.ModuleId = talk.ModulId;
+
+                            //Add new talks name
+                            var addTalk = new TalkAccessList();
+                            addTalk.TalkId = dataModel.TalkId.Value;
+                            addTalk.TalkName = talk.Name;
+
+                            addTalkList.Add(addTalk);
+
+                            _contex.UserTalks.Add(dataModel);
+                        }
                     }
                     _contex.SaveChanges();
                 }
 
-                return _contex.UserTalks.Where(t => t.UserId == userId);
+                userTalksModel.UserTalkList = _contex.UserTalks.Where(t => t.UserId == userId).ToList();
+                userTalksModel.addTalkList = addTalkList;
+                userTalksModel.removeTalkList = removeTalkList;
+
+                return userTalksModel;
             });
 
         }
@@ -76,102 +113,116 @@ namespace Sculptor.Gynac.Repository.UserTalks
 
 
         public IEnumerable<TutorialSummaryModel> TutorialSummary(int userId)
-        {
-            // return await Task.Run(() =>
-            // {
+        {   
             var model = new List<TutorialSummaryModel>();
-            
-            
-            
-            var ds = _contex.Get_Tutorial_Summary(userId);
-            foreach (var item in ds)            
+
+            string CONNECTION_STRING = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+            DataSet dsResult = new DataSet();
+
+            using (SqlConnection con = new SqlConnection(CONNECTION_STRING))
             {
-                var data = new TutorialSummaryModel();
-                data.SessionName = item.SessionName;
-                data.TotalTalks = (item.TotalTalks != 0 && item.TotalTalks != null) ? item.TotalTalks : 0;
-                data.TotalCompletedTalks = (item.TotalCompletedTalks != 0 && item.TotalCompletedTalks != null) ? item.TotalCompletedTalks : 0;
-                data.TotalPendingTalks = (item.TotalCompletedTalks != 0 && item.TotalCompletedTalks != null) ? data.TotalTalks - item.TotalCompletedTalks : 0;
+                con.Open();
+                SqlCommand command = new SqlCommand("Get_Tutorial_Summary", con);
+                command.CommandType = CommandType.StoredProcedure;
 
-                model.Add(data);
-            }
-            return model.ToList();
-            //try
-            //{
-            //    DataSet ds = _contex.Get_Tutorial_Summary(userId);
+                command.Parameters.AddWithValue("@User_Id", userId);
 
-            //    if (ds != null && ds.Tables[0].Rows[0][0].ToString() == "Session 1")
-            //    {
-            //        int i = 0;
-            //        int moduleCountCompleted = 0;
-            //        int moduleCountPending = 0;
-            //        int finalmoduleCountCompleted = 0;
-            //        foreach (DataRow row in ds.Tables[0].Rows)
-            //        {
-            //            var data = new TutorialSummaryModel();
-            //            if (row["SessionName"].ToString() == ds.Tables[1].Rows[i]["SessionName"].ToString())
-            //            {
-            //                data.SessionName = row["SessionName"].ToString();
-            //                data.TotalTalks = Convert.ToInt32(row["TotalTalks"].ToString());
-            //                data.TotalPendingTalks = (row["TotalCompletedTalks"].ToString() != "") ? Convert.ToInt32(row["TotalCompletedTalks"].ToString()) : 0;
-            //                data.TotalCompletedTalks = (row["TotalCompletedTalks"].ToString() != "") ? data.TotalTalks - data.TotalPendingTalks : 0;
-            //                data.TotalModules = Convert.ToInt32(ds.Tables[1].Rows[i]["TotalModules"].ToString());
-            //                moduleCountCompleted = 0;
-            //                moduleCountPending = 0;
-            //                finalmoduleCountCompleted = 0;
-            //                if (ds.Tables[2] != null && ds.Tables[2].Rows.Count > i)
-            //                {
-            //                    //var mid = (ds.Tables[2].Rows[i]["SessionId"].ToString() != "") ? ds.Tables[2].Rows[i]["SessionId"].ToString() : "0";
-            //                    if (Convert.ToInt32(ds.Tables[1].Rows[i]["SessionId"].ToString()) == Convert.ToInt32(ds.Tables[2].Rows[i]["SessionId"].ToString()))
-            //                    {
-            //                        if (ds.Tables[3] != null)
-            //                        {
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = command;
 
-            //                            foreach (DataRow row1 in ds.Tables[3].Rows)
-            //                            {
-            //                                if (Convert.ToInt32(ds.Tables[2].Rows[i]["ModuleId"].ToString()) == Convert.ToInt32(row1["ModulId"].ToString()))
-            //                                {
-            //                                    if (row1["isStatus"].ToString() == "1")
-            //                                    {
-            //                                        moduleCountCompleted++;
-            //                                    }
-            //                                    else
-            //                                    {
-            //                                        moduleCountPending++;
-            //                                    }
+                da.Fill(dsResult);
 
-            //                                    if (Convert.ToInt32(ds.Tables[2].Rows[i]["TotalModuleImage"].ToString()) == moduleCountCompleted)
-            //                                    {
-            //                                        finalmoduleCountCompleted++;
-            //                                        data.TotalCompletedModules = finalmoduleCountCompleted;
-            //                                    }
-            //                                }
+                try
+                {
+                    DataSet ds = dsResult;
+                    if (ds != null)
+                    {
+                        int moduleCountCompleted = 0;
 
-            //                            }
-            //                        }
-            //                    }
-            //                    else
-            //                    {
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    data.TotalPendingModules = 0;
-            //                    data.TotalCompletedModules = 0;
-            //                    data.TotalModules = 0;
-            //                }
-            //                model.Add(data);
-            //            }
-            //            i++;
-            //        }
-            //    }
-            //}
-            //catch
-            //{
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            var data = new TutorialSummaryModel();
+                            data.SessionName = row["SessionName"].ToString();
+                            data.TotalTalks = Convert.ToInt32(row["TotalTalks"].ToString());
 
-            //    throw;
-            //}
+                            if (row["TotalCompletedTalks"].ToString() != "")
+                            {
+
+                                data.TotalCompletedTalks = (row["TotalCompletedTalks"].ToString() != "") ? Convert.ToInt32(row["TotalCompletedTalks"].ToString()) : 0;
+                                data.TotalPendingTalks = (row["TotalCompletedTalks"].ToString() != "") ? data.TotalTalks - data.TotalCompletedTalks : data.TotalTalks;
+                                data.TotalCompletedModules = 0;
+
+                            }
+                            else
+                            {
+                                data.TotalCompletedTalks = 0;
+                                data.TotalPendingTalks = 0;
+                                data.TotalTalks = 0;
+
+                                data.TotalCompletedModules = 0;
+                                data.TotalPendingModules = 0;
+                                data.TotalModules = 0;
+                            }
+                            model.Add(data);
+                        }
+
+                        foreach (var item in model)
+                        {
+                            foreach (DataRow row in ds.Tables[1].Rows)
+                            {
+                                if (item.SessionName == row["SessionName"].ToString())
+                                {
+                                    item.TotalModules = Convert.ToInt32(row["TotalModules"].ToString());
+                                }
+                            }
+                        }
+
+
+                        foreach (var item in model)
+                        {
+                            moduleCountCompleted = 0;
+                            foreach (DataRow row in ds.Tables[2].Rows)
+                            {
+                                if (item.SessionName == row["SessionName"].ToString())
+                                {
+
+                                    foreach (DataRow row1 in ds.Tables[3].Rows)
+                                    {
+                                        if (row["ModuleId"].ToString() == row1["modulid"].ToString())
+                                        {
+                                            if (row["TotalModuleImage"].ToString() == row1["userAddedImage"].ToString())
+                                            {
+                                                moduleCountCompleted++;
+                                                item.TotalPendingModules = item.TotalModules - moduleCountCompleted;
+                                                item.TotalCompletedModules = item.TotalCompletedModules + 1;
+                                            }
+                                            else
+                                            {
+                                                item.TotalCompletedModules = 0;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        foreach (var item in model)
+                        {
+                            if (item.TotalCompletedModules == 0)
+                            {
+                                item.TotalPendingModules = item.TotalModules;
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    throw;
+                }                
+            }            
             
-            //});
+            return model.ToList();                        
+            
         }
     }
 }

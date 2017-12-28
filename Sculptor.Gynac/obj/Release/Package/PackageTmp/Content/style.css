@@ -2839,4 +2839,9 @@ ul.dropdown-menu.dropdown-menu-right {
 .top-content label {
     font-size: 1.6em;
 }
+    
 }
+.imagepointer {
+        cursor:pointer;
+    }
+

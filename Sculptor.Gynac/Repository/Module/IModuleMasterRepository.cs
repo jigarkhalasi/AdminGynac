@@ -13,5 +13,9 @@ namespace Sculptor.Gynac.Repository.Module
         Task<IQueryable<ModuleImage>> GetModuleSmapleImages(int moduleId);
 
         Task<bool> UploadSampleImage(ModuleSampleImageList model);
+
+        Task<bool> DeleteSampleImage(Int32 sampleModuleId);
+
+
     }
 }

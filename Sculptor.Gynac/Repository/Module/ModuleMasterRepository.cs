@@ -46,5 +46,18 @@ namespace Sculptor.Gynac.Repository.Module
 
             //});
         }
+
+
+        public async Task<bool> DeleteSampleImage(int sampleModuleId)
+        {
+            var data = await _contex.ModuleImages.FindAsync(sampleModuleId);
+            var data1 = _contex.UserModuleImages.Where(u=> u.ModuleImageId == sampleModuleId).ToList();
+            //foreach (var item in data1)
+            //{
+                _contex.UserModuleImages.RemoveRange(data1);    
+            //}
+            _contex.ModuleImages.Remove(data);
+            return await _contex.SaveChangesAsync() > 0 ? true : false;
+        }
     }
 }

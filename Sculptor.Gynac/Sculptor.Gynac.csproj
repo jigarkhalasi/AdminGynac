@@ -167,6 +167,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,6 +181,7 @@
     <Compile Include="Models\ModuleUserListByFacultyModel.cs" />
     <Compile Include="Models\ReviewCommentModel.cs" />
     <Compile Include="Models\SessionMasterModel.cs" />
+    <Compile Include="Models\TalkAccessList.cs" />
     <Compile Include="Models\TalkMasterModel.cs" />
     <Compile Include="Models\TransferToFacultyModel.cs" />
     <Compile Include="Models\TutorialSummaryModel.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="Models\UserModuleImages.cs" />
     <Compile Include="Models\UserNotificationModel.cs" />
     <Compile Include="Models\UsersForReviewModel.cs" />
+    <Compile Include="Models\UserTalkResult.cs" />
     <Compile Include="Models\UserTaskModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AspNetRole.cs">
@@ -268,12 +271,6 @@
     </Compile>
     <Compile Include="Repository\Notifications\INotificationRepository.cs" />
     <Compile Include="Repository\Notifications\NotificationRepository.cs" />
-    <Compile Include="Repository\QuestionMaster.cs">
-      <DependentUpon>Gynac.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\QuetionOptionMaster.cs">
-      <DependentUpon>Gynac.tt</DependentUpon>
-    </Compile>
     <Compile Include="Repository\RatingMaster.cs">
       <DependentUpon>Gynac.tt</DependentUpon>
     </Compile>
@@ -284,9 +281,6 @@
       <DependentUpon>Gynac.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\User.cs">
-      <DependentUpon>Gynac.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\UserAnswer.cs">
       <DependentUpon>Gynac.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\UserBookMark.cs">
@@ -352,6 +346,7 @@
     <Content Include="Content\images\in9.jpg" />
     <Content Include="Content\images\link.png" />
     <Content Include="Content\images\lo.png" />
+    <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\na.jpg" />
     <Content Include="Content\images\na1.jpg" />
     <Content Include="Content\images\na2.jpg" />
@@ -445,6 +440,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\EmailTemplates\AccessRight.html" />
+    <Content Include="Views\EmailTemplates\ImageAccepted.html" />
+    <Content Include="Views\EmailTemplates\ImageRejected.html" />
+    <Content Include="Views\EmailTemplates\RevokedRight.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -501,6 +500,7 @@
     <Content Include="Views\Faculty\Dashboard.cshtml" />
     <Content Include="Views\Module\Index.cshtml" />
     <Content Include="Views\User\TutorialSummary.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -40,6 +40,8 @@ namespace Sculptor.Gynac.Repository.Users
             data.Institution_Work_Place = dataModel.Institution_Work_Place;
             data.Where_Hear = dataModel.Where_Hear;
             data.Comment = dataModel.Comment;
+            data.CreateDate = DateTime.UtcNow;
+            data.UpdateDate = DateTime.UtcNow;
 
             await _contex.SaveChangesAsync();
             return await _contex.Users.FindAsync(dataModel.User_Id);
